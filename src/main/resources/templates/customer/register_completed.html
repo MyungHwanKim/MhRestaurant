@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 회원 가입 </title>
+    <style>
+        h1, .completeMessage {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="/">
+        <h1> MH 식당 </h1>
+    </a>
+    <hr/>
+    <div class="completeMessage">
+        <div th:if="${result}">
+            <h2> 회원 가입 </h2>
+            <p> 회원 가입 완료까지 얼마 남지 않았습니다. </p>
+            <p> 입력하신 이메일로 인증 메일을 보냈으니 </p>
+            <p> 메일을 확인하시어 활성화해주시면 감사합니다. </p>
+        </div>
+        <div th:if="${result eq false}">
+            <h2> 회원 가입 실패 </h2>
+            <p> 회원 가입에 실패하였습니다. </p>
+        </div>
+    </div>
+</body>
+</html>

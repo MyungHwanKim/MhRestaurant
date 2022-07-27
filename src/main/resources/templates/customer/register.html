@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 회원 가입</title>
+    <style>
+        h1, h2, .register {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="/">
+        <h1> MH 식당 </h1>
+    </a>
+    <hr/>
+    <h2> 회원 가입 </h2>
+    <form class="register" method="post">
+        <div>
+            아이디 <input type="text" name="userId" placeholder="아이디 입력" required/>
+        </div>
+        <div>
+            비밀번호 <input type="password" name="password" placeholder="비밀번호 입력" required/>
+        </div>
+        <div>
+            비밀번호 재확인 <input type="password" name="rePassword" placeholder="비밀번호 재확인" required/>
+        </div>
+        <div>
+            이름 <input type="text" name="userName" placeholder="이름 입력" required/>
+        </div>
+        <div>
+            성별 <input type="text" name="gender" placeholder="성별" required/>
+        </div>
+        <div>
+            휴대전화 <input type="tel" name="phone" placeholder="전화번호 입력" required/>
+        </div>
+        <div>
+            이메일 <input type="email" name="email" placeholder="이메일 입력" required/>
+        </div>
+        <div>
+            <button type="submit"> 가입 하기 </button>
+        </div>
+    </form>
+</body>
+</html>
