@@ -9,27 +9,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Controller
 public class CustomerController {
 
     private final CustomerService customerService;
 
-    @RequestMapping("/customer/login")
-    public String login() {
-        return "customer/login";
+    @RequestMapping("/customer/sign-in")
+    public String signIn() {
+        return "customer/sign_in";
     }
 
-    @GetMapping("/customer/register")
-    public String register() {
-        return "customer/register";
+    @GetMapping("/customer/sign-up")
+    public String signUp() {
+        return "customer/sign_up";
     }
 
-    @PostMapping("/customer/register")
-    public String registerSubmit(Model model, CustomerInput customerInput) {
-        boolean result = customerService.register(customerInput);
+    @PostMapping("/customer/sign-up")
+    public String signUpSubmit(Model model, CustomerInput customerInput) {
+        boolean result = customerService.signUp(customerInput);
         model.addAttribute("result", result);
 
-        return "customer/register_completed";
+        return "customer/sign_up_completed";
+    }
+
+    @GetMapping("/customer/email-auth")
+    public String emailAuth(Model model, HttpServletRequest request) {
+        String uuid = request.getParameter("id");
+        System.out.println(uuid);
+
+        boolean result = customerService.emailAuth(uuid);
+        model.addAttribute("result", result);
+
+        return "customer/email_auth";
     }
 }

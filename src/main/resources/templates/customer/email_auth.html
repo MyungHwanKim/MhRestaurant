@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 이메일 인증 </title>
+    <style>
+        h1, .authMessage {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="/">
+        <h1> MH 식당 </h1>
+    </a>
+    <hr/>
+    <div class="authMessage">
+        <div th:if="${result}">
+            <h2> 이메일 인증 </h2>
+            <p> 이메일 인증에 성공하였습니다. </p>
+            <p> 회원가입을 축하합니다. </p>
+            <p> 홈으로 이동하여 로그인 해주세요. </p>
+        </div>
+        <div th:if="${result eq false}">
+            <h2> 이메일 인증 </h2>
+            <p> 이메일 인증에 실패하였습니다. </p>
+        </div>
+    </div>
+</body>
+</html>
