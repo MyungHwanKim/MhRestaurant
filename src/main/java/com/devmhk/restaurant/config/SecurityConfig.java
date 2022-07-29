@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -47,6 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/customer/sign-in")
                 .failureHandler(getFailureHandler())
                 .permitAll();
+
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/customer/sign-out"))
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
 
         super.configure(http);
     }

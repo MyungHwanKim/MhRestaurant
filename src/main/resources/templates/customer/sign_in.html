@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 로그인</title>
+    <style>
+        h1, h2, #error, .login, .searchPassword {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="/">
+        <h1> MH 식당 </h1>
+    </a>
+    <hr/>
+    <h2> 로그인 </h2>
+
+    <div id="error" th:text="${errorMessage}"></div>
+
+    <form class="login" method="post">
+        <div>
+            아이디 <input type="text" name="username" placeholder="아이디 입력" required/>
+        </div>
+        <div>
+            비밀번호 <input type="password" name="password" placeholder="비밀번호 입력" required/>
+        </div>
+        <div>
+            <button type="submit"> 로그인 </button>
+        </div>
+    </form>
+    <div class="searchPassword">
+        <a href="#"> 비밀번호 찾기 </a>
+    </div>
+</body>
+</html>

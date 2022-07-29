@@ -14,11 +14,12 @@
 </head>
 <body>
     <div class="bar">
-        <a href="#"> MY 관리 </a>
+        <a href="/customer/myInfo"> MY 관리 </a>
         |
-        <a href="customer/login"> 로그인 </a>
+        <a th:if="${userId eq false}" href="/customer/sign-in"> 로그인 </a>
+        <a th:if="${userId}" href="/customer/sign-out"> 로그아웃 </a>
         |
-        <a href="customer/register"> 회원가입 </a>
+        <a href="/customer/sign-up"> 회원가입 </a>
     </div>
     <hr/>
     <a href="/">
