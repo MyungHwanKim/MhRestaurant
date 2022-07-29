@@ -29,4 +29,7 @@ public class Customer implements StatusCode {
     private String emailAuthKey;
 
     private String status;
+
+    private String resetPasswordKey;
+    private LocalDateTime resetPasswordLimitAt;
 }

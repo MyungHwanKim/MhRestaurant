@@ -1,6 +1,7 @@
 package com.devmhk.restaurant.customer.controller;
 
 import com.devmhk.restaurant.customer.model.CustomerInput;
+import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import com.devmhk.restaurant.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -45,5 +46,46 @@ public class CustomerController {
         model.addAttribute("result", result);
 
         return "customer/email_auth";
+    }
+
+    @GetMapping("/customer/find/password")
+    public String findPassword() {
+        return "customer/find_password";
+    }
+
+    @PostMapping("/customer/find/password")
+    public String findPasswordSubmit(Model model, ResetPasswordInput resetPasswordInput) {
+
+        boolean result = false;
+        try {
+            result = customerService.sendResetPassword(resetPasswordInput);
+        } catch (Exception e) {
+        }
+        model.addAttribute("result", result);
+
+        return "customer/find_password_result";
+    }
+
+    @GetMapping("/customer/reset/password")
+    public String resetPassword(Model model, HttpServletRequest request) {
+        String uuid = request.getParameter("id");
+        boolean result = customerService.checkResetPassword(uuid);
+
+        model.addAttribute("result", result);
+
+        return "customer/reset_password";
+    }
+
+    @PostMapping("/customer/reset/password")
+    public String resetPasswordSubmit(Model model, ResetPasswordInput resetPasswordInput) {
+
+        boolean result = false;
+        try {
+            result = customerService.resetPassword(resetPasswordInput.getId(), resetPasswordInput.getPassword());
+        } catch (Exception e) {
+        }
+        model.addAttribute("result", result);
+
+        return "customer/reset_password_result";
     }
 }

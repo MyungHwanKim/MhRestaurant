@@ -3,6 +3,7 @@ package com.devmhk.restaurant.customer.service;
 import com.devmhk.restaurant.component.MailComponent;
 import com.devmhk.restaurant.customer.exception.CustomerNotEmailAuthException;
 import com.devmhk.restaurant.customer.model.CustomerInput;
+import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import com.devmhk.restaurant.customer.repository.CustomerRepository;
 import com.devmhk.restaurant.customer.domain.Customer;
 import lombok.RequiredArgsConstructor;
@@ -83,11 +84,82 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public boolean sendResetPassword(ResetPasswordInput resetPasswordInput) {
+
+        Optional<Customer> optionalCustomer = customerRepository.findByUserIdAndUserName(resetPasswordInput.getUserId(), resetPasswordInput.getUserName());
+        if (optionalCustomer.isEmpty()) {
+            throw new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. ");
+        }
+
+        Customer customer = optionalCustomer.get();
+        String uuid = UUID.randomUUID().toString();
+
+        customer.setResetPasswordKey(uuid);
+        customer.setResetPasswordLimitAt(LocalDateTime.now().plusHours(12));
+        customerRepository.save(customer);
+
+        String email = customer.getEmail();
+        String subject = "MH 식당 : 비밀번호 초기화 안내";
+        String text = "<p> 안녕하세요. MH 식당입니다. </p>" +
+                "<p> 아래 링크를 클릭하셔서 비밀번호를 초기화 해주세요. </p>" +
+                "<div><a target='_blank' href='http://localhost:8080/customer/reset/password?id=" +
+                uuid + "'> 비밀번호 초기화 </a></div>";
+        mailComponent.sendMail(email, subject, text);
+
+        return true;
+    }
+
+    @Override
+    public boolean resetPassword(String uuid, String password) {
+        Optional<Customer> optionalCustomer = customerRepository.findByResetPasswordKey(uuid);
+        if (optionalCustomer.isEmpty()) {
+            throw new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. ");
+        }
+
+        Customer customer = optionalCustomer.get();
+
+        if (customer.getResetPasswordLimitAt() == null) {
+            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
+        }
+
+        if (customer.getResetPasswordLimitAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
+        }
+
+        String encPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        customer.setPassword(encPassword);
+        customer.setResetPasswordKey(null);
+        customer.setResetPasswordLimitAt(null);
+        customerRepository.save(customer);
+
+        return true;
+    }
+
+    @Override
+    public boolean checkResetPassword(String uuid) {
+        Optional<Customer> optionalCustomer = customerRepository.findByResetPasswordKey(uuid);
+        if (optionalCustomer.isEmpty()) {
+            return false;
+        }
+
+        Customer customer = optionalCustomer.get();
+
+        if (customer.getResetPasswordLimitAt() == null) {
+            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
+        }
+
+        if (customer.getResetPasswordLimitAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
+        }
+        return true;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Customer> optionalCustomer = customerRepository.findById(username);
         if (optionalCustomer.isEmpty()) {
-            throw new UsernameNotFoundException("고객 정보가 존재하지 않습니다.");
+            throw new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. ");
         }
 
         Customer customer = optionalCustomer.get();
