@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Customer {
+public class Customer implements StatusCode {
     @Id
     private String userId;
     private String password;
@@ -27,4 +27,6 @@ public class Customer {
     private boolean emailAuthYn;
     private LocalDateTime emailAuthAt;
     private String emailAuthKey;
+
+    private String status;
 }

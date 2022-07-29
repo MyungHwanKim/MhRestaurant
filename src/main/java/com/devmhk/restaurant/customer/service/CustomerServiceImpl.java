@@ -46,6 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
                                     .createdAt(LocalDateTime.now())
                                     .emailAuthYn(false)
                                     .emailAuthKey(uuid)
+                                    .status(Customer.STATUS_REQ)
                                     .build();
         customerRepository.save(customer);
 
@@ -75,6 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         customer.setEmailAuthYn(true);
         customer.setEmailAuthAt(LocalDateTime.now());
+        customer.setStatus(Customer.STATUS_ING);
         customerRepository.save(customer);
 
         return true;
@@ -90,8 +92,16 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer customer = optionalCustomer.get();
 
-        if (!customer.isEmailAuthYn()) {
+        if (Customer.STATUS_REQ.equals(customer.getStatus())) {
             throw new CustomerNotEmailAuthException("이메일 인증 후 로그인 해주세요.");
+        }
+
+        if (Customer.STATUS_DORMANT.equals(customer.getStatus())) {
+            throw new CustomerNotEmailAuthException("휴먼 고객입니다.");
+        }
+
+        if (Customer.STATUS_WITHDRAW.equals(customer.getStatus())) {
+            throw new CustomerNotEmailAuthException("탈퇴된 고객입니다.");
         }
 
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
