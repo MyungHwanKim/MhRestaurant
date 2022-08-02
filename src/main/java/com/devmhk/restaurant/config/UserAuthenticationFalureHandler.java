@@ -15,7 +15,7 @@ public class UserAuthenticationFalureHandler extends SimpleUrlAuthenticationFail
                                         HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException
     {
-        String msg = "로그인에 실패하였습니다.";
+        String msg = "아이디 혹은 비밀번호를 틀렸습니다.";
 
         if (exception instanceof InternalAuthenticationServiceException) {
             msg = exception.getMessage();
