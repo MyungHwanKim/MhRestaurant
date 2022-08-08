@@ -1,8 +1,11 @@
 package com.devmhk.restaurant.customer.service;
 
+import com.devmhk.restaurant.customer.domain.Customer;
 import com.devmhk.restaurant.customer.model.CustomerInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import org.springframework.security.core.userdetails.UserDetailsService;
+
+import java.util.List;
 
 public interface CustomerService extends UserDetailsService {
     /**
@@ -29,4 +32,9 @@ public interface CustomerService extends UserDetailsService {
      * 비밀번호 재설정 후 링크 막기
      */
     boolean checkResetPassword(String uuid);
+
+    /**
+     * 고객 목록 가져오기(관리자)
+     */
+    List<Customer> list();
 }

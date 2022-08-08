@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 관리자 고객 관리</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+</head>
+<body>
+
+    <div class="bar">
+        <a href="/"> 홈 </a>
+        |
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <h1 class="title"> MH 식당 - 고객 관리</h1>
+    <div class="adminMain">
+        <a href="/admin/main.do"> 관리자 메인 </a>
+        |
+        <a href="#"> 메뉴 관리 </a>
+        |
+        <a href="/admin/customer/list.do"> 고객 관리 </a>
+        |
+        <a href="#"> 예약 관리 </a>
+        |
+        <a href="#"> 리뷰 관리 </a>
+    </div>
+    <div class="adminList">
+        <table>
+            <thead>
+                <tr>
+                    <th> 아이디 </th>
+
+                    <th> 이름 </th>
+
+                    <th> 성별 </th>
+
+                    <th> 휴대전화 </th>
+
+                    <th> 이메일 </th>
+
+                    <th> 가입일 </th>
+
+                    <th> 최근 방문일 </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.userId}"></td>
+                    <td th:text="${customer.userName}"></td>
+                    <td th:text="${customer.gender}"></td>
+                    <td th:text="${customer.phone}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.createdAt}"></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

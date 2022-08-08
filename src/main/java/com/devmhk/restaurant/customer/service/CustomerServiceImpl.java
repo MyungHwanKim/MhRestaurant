@@ -155,6 +155,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> list() {
+        return customerRepository.findAll();
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<Customer> optionalCustomer = customerRepository.findById(username);
