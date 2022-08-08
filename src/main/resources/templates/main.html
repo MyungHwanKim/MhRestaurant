@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="bar">
-        <a href="/customer/myInfo"> MY 관리 </a>
+        <a href="/customer/myMain"> MY 관리 </a>
         |
         <a th:if="${userId eq false}" href="/customer/sign-in"> 로그인/회원가입 </a>
         <a th:if="${userId}" href="/customer/sign-out"> 로그아웃 </a>
@@ -18,16 +18,18 @@
         <h1> MH 식당 </h1>
     </a>
     <br>
-    <div class="menu">
-        <a href="#"> 메뉴 소개 </a>
-    </div>
-    <br>
-    <div class="reserve">
-        <a href="#"> 예약 </a>
-    </div>
-    <br>
-    <div class="review">
-        <a href="#"> 방문자 리뷰 </a>
+    <div class="list">
+        <div class="menu">
+            <a href="#"> 메뉴 소개 </a>
+        </div>
+        <br>
+        <div class="reserve">
+            <a href="#"> 예약 </a>
+        </div>
+        <br>
+        <div class="review">
+            <a href="#"> 방문자 리뷰 </a>
+        </div>
     </div>
 
 
