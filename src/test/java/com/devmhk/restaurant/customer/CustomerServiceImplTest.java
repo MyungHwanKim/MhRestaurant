@@ -29,7 +29,6 @@ class CustomerServiceImplTest {
                 .phone("010-1111-2222")
                 .email("choi@naver.com")
                 .build();
-
         // when
         Customer customer = customerRepository.save(choi);
         // then
