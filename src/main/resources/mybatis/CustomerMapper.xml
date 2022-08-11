@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devmhk.restaurant.admin.mapper.CustomerMapper">
+    <select id="selectList" resultType="com.devmhk.restaurant.admin.dto.CustomerDto">
+        select *
+        from customer
+        limit #{pageStart}, #{pageEnd};
+    </select>
+
+    <select id="selectListCount" resultType="long">
+        SELECT count(*)
+        FROM customer
+        where 1 = 1
+    </select>
+</mapper>

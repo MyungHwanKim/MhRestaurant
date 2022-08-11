@@ -29,22 +29,18 @@
         <a href="#"> 리뷰 관리 </a>
     </div>
     <div class="adminList">
+        <p>전체 <span th:text="${totalCount}"></span>개</p>
         <table>
             <thead>
                 <tr>
                     <th> 아이디 </th>
-
                     <th> 이름 </th>
-
                     <th> 성별 </th>
-
                     <th> 휴대전화 </th>
-
                     <th> 이메일 </th>
-
                     <th> 가입일 </th>
-
                     <th> 최근 방문일 </th>
+                    <th> 최근 로그인 일자 </th>
                 </tr>
             </thead>
             <tbody>
@@ -55,10 +51,12 @@
                     <td th:text="${customer.phone}"></td>
                     <td th:text="${customer.email}"></td>
                     <td th:text="${customer.createdAt}"></td>
-                    <td></td>
+                    <td>2022-07-29</td>
+                    <td>2022-07-29T18:32:07.341347</td>
                 </tr>
             </tbody>
         </table>
+        <div class="page" th:utext="${pageHtml}"></div>
     </div>
 </body>
 </html>

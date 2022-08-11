@@ -1,5 +1,7 @@
 package com.devmhk.restaurant.customer.service;
 
+import com.devmhk.restaurant.admin.dto.CustomerDto;
+import com.devmhk.restaurant.admin.model.CustomerParam;
 import com.devmhk.restaurant.customer.domain.Customer;
 import com.devmhk.restaurant.customer.model.CustomerInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
@@ -36,5 +38,5 @@ public interface CustomerService extends UserDetailsService {
     /**
      * 고객 목록 가져오기(관리자)
      */
-    List<Customer> list();
+    List<CustomerDto> list(CustomerParam customerParam);
 }

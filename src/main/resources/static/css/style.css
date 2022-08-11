@@ -94,13 +94,27 @@ h2, .hot, .resetPassword, .resultPassword {
 
 .adminList table {
     margin-top: 30px;
-    width: 100%;
     border-collapse: collapse;
+    text-align: center;
+    line-height: 1.5;
 }
 
-.adminList table th, .adminList table td {
-    border: solid 1px #000;
+.adminList thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: black;
+    border-bottom: 3px solid #000;
 }
 
+.adminList tbody td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
 
+.page {
+    color: black;
+}
 

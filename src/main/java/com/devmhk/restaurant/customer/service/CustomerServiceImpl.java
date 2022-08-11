@@ -1,5 +1,8 @@
 package com.devmhk.restaurant.customer.service;
 
+import com.devmhk.restaurant.admin.dto.CustomerDto;
+import com.devmhk.restaurant.admin.mapper.CustomerMapper;
+import com.devmhk.restaurant.admin.model.CustomerParam;
 import com.devmhk.restaurant.component.MailComponent;
 import com.devmhk.restaurant.customer.exception.CustomerNotEmailAuthException;
 import com.devmhk.restaurant.customer.model.CustomerInput;
@@ -14,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -26,6 +30,7 @@ import java.util.UUID;
 public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final MailComponent mailComponent;
+    private final CustomerMapper customerMapper;
     @Override
     public boolean signUp(CustomerInput customerInput) {
         Optional<Customer> optionalCustomer = customerRepository.findById(customerInput.getUserId());
@@ -155,8 +160,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> list() {
-        return customerRepository.findAll();
+    public List<CustomerDto> list(CustomerParam customerParam) {
+        long totalCount = customerMapper.selectListCount(customerParam);
+        List<CustomerDto> list = customerMapper.selectList(customerParam);
+        if (!CollectionUtils.isEmpty(list)) {
+            int i = 0;
+            for(CustomerDto x : list) {
+                x.setTotalCount(totalCount);
+                x.setSeq(totalCount - customerParam.getPageStart() - i);
+            }
+        }
+        return list;
     }
 
     @Override
