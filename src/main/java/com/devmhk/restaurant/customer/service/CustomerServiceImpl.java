@@ -5,6 +5,7 @@ import com.devmhk.restaurant.admin.mapper.CustomerMapper;
 import com.devmhk.restaurant.admin.model.CustomerParam;
 import com.devmhk.restaurant.component.MailComponent;
 import com.devmhk.restaurant.customer.exception.CustomerNotEmailAuthException;
+import com.devmhk.restaurant.customer.exception.CustomerSignInException;
 import com.devmhk.restaurant.customer.model.CustomerInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import com.devmhk.restaurant.customer.repository.CustomerRepository;
@@ -188,11 +189,11 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         if (Customer.STATUS_DORMANT.equals(customer.getStatus())) {
-            throw new CustomerNotEmailAuthException("휴먼 고객입니다.");
+            throw new CustomerSignInException("휴먼 고객입니다.");
         }
 
         if (Customer.STATUS_WITHDRAW.equals(customer.getStatus())) {
-            throw new CustomerNotEmailAuthException("탈퇴된 고객입니다.");
+            throw new CustomerSignInException("탈퇴된 고객입니다.");
         }
 
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
