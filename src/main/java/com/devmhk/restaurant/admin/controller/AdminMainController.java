@@ -1,4 +1,4 @@
-package com.devmhk.restaurant.admin;
+package com.devmhk.restaurant.admin.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
