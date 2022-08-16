@@ -62,8 +62,8 @@ public class PageUtil {
         init();
         StringBuilder sb = new StringBuilder();
 
-        long previousPageIndex = startPage > 1 ? startPage - 1 : 1;
-        long nextPageIndex = endPage < totalBlockCount ? endPage + 1 : totalBlockCount;
+        long previousPageIndex = pageIndex > 1 ? pageIndex - 1 : 1;
+        long nextPageIndex = pageIndex < totalBlockCount ? pageIndex + 1 : totalBlockCount;
 
         String addQueryString = "";
         if (queryString != null && queryString.length() > 0) {
