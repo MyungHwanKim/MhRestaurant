@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UserAuthenticationFalureHandler extends SimpleUrlAuthenticationFailureHandler {
+public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+
+    static String msg = "아이디 혹은 비밀번호를 틀렸습니다.";
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException
     {
-        String msg = "아이디 혹은 비밀번호를 틀렸습니다.";
-
         if (exception instanceof InternalAuthenticationServiceException) {
             msg = exception.getMessage();
         }
