@@ -4,6 +4,8 @@ package com.devmhk.restaurant.customer.domain;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Customer implements StatusCode {
+public class Customer {
     @Id
     private String userId;
     private String password;
@@ -28,7 +30,8 @@ public class Customer implements StatusCode {
     private LocalDateTime emailAuthAt;
     private String emailAuthKey;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private AccountStatus status;
 
     private String resetPasswordKey;
     private LocalDateTime resetPasswordLimitAt;

@@ -4,12 +4,12 @@ import com.devmhk.restaurant.admin.dto.CustomerDto;
 import com.devmhk.restaurant.admin.mapper.CustomerMapper;
 import com.devmhk.restaurant.admin.model.CustomerParam;
 import com.devmhk.restaurant.component.MailComponent;
+import com.devmhk.restaurant.customer.domain.Customer;
 import com.devmhk.restaurant.customer.exception.CustomerNotEmailAuthException;
 import com.devmhk.restaurant.customer.exception.CustomerSignInException;
 import com.devmhk.restaurant.customer.model.CustomerInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import com.devmhk.restaurant.customer.repository.CustomerRepository;
-import com.devmhk.restaurant.customer.domain.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,13 +18,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static com.devmhk.restaurant.customer.domain.AccountStatus.*;
 
 @RequiredArgsConstructor
 @Service
@@ -40,7 +41,6 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         String uuid = UUID.randomUUID().toString();
-
         String encPassword = BCrypt.hashpw(customerInput.getPassword(), BCrypt.gensalt());
 
         Customer customer = Customer.builder()
@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
                                     .createdAt(LocalDateTime.now())
                                     .emailAuthYn(false)
                                     .emailAuthKey(uuid)
-                                    .status(Customer.STATUS_REQ)
+                                    .status(REQ)
                                     .build();
         customerRepository.save(customer);
 
@@ -83,7 +83,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         customer.setEmailAuthYn(true);
         customer.setEmailAuthAt(LocalDateTime.now());
-        customer.setStatus(Customer.STATUS_ING);
+        customer.setStatus(ING);
         customerRepository.save(customer);
 
         return true;
@@ -92,12 +92,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean sendResetPassword(ResetPasswordInput resetPasswordInput) {
 
-        Optional<Customer> optionalCustomer = customerRepository.findByUserIdAndUserName(resetPasswordInput.getUserId(), resetPasswordInput.getUserName());
-        if (optionalCustomer.isEmpty()) {
-            throw new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. ");
-        }
+        Customer customer = customerRepository.findByUserIdAndUserName(resetPasswordInput.getUserId(), resetPasswordInput.getUserName())
+                .orElseThrow(() -> new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. "));
 
-        Customer customer = optionalCustomer.get();
         String uuid = UUID.randomUUID().toString();
 
         customer.setResetPasswordKey(uuid);
@@ -117,20 +114,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean resetPassword(String uuid, String password) {
-        Optional<Customer> optionalCustomer = customerRepository.findByResetPasswordKey(uuid);
-        if (optionalCustomer.isEmpty()) {
-            throw new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. ");
-        }
+        Customer customer = customerRepository.findByResetPasswordKey(uuid)
+                .orElseThrow(() -> new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. "));
 
-        Customer customer = optionalCustomer.get();
-
-        if (customer.getResetPasswordLimitAt() == null) {
-            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
-        }
-
-        if (customer.getResetPasswordLimitAt().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
-        }
+        validateCheckResetPassword(customer);
 
         String encPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         customer.setPassword(encPassword);
@@ -149,7 +136,12 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Customer customer = optionalCustomer.get();
+        validateCheckResetPassword(customer);
 
+        return true;
+    }
+
+    public void validateCheckResetPassword(Customer customer) {
         if (customer.getResetPasswordLimitAt() == null) {
             throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
         }
@@ -157,42 +149,33 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer.getResetPasswordLimitAt().isBefore(LocalDateTime.now())) {
             throw new RuntimeException(" 유효한 날짜가 아닙니다. ");
         }
-        return true;
     }
 
     @Override
     public List<CustomerDto> list(CustomerParam customerParam) {
-        long totalCount = customerMapper.selectListCount(customerParam);
-        List<CustomerDto> list = customerMapper.selectList(customerParam);
-        if (!CollectionUtils.isEmpty(list)) {
-            int i = 0;
-            for(CustomerDto x : list) {
-                x.setTotalCount(totalCount);
-                x.setSeq(totalCount - customerParam.getPageStart() - i);
-            }
-        }
-        return list;
+        return customerMapper.selectList(customerParam);
+    }
+
+    @Override
+    public Long totalCount(CustomerParam customerParam) {
+        return customerMapper.selectListCount(customerParam);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<Customer> optionalCustomer = customerRepository.findById(username);
-        if (optionalCustomer.isEmpty()) {
-            throw new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. ");
-        }
+        Customer customer = customerRepository.findById(username)
+                .orElseThrow(() -> new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. "));
 
-        Customer customer = optionalCustomer.get();
-
-        if (Customer.STATUS_REQ.equals(customer.getStatus())) {
+        if (REQ.equals(customer.getStatus())) {
             throw new CustomerNotEmailAuthException("이메일 인증 후 로그인 해주세요.");
         }
 
-        if (Customer.STATUS_DORMANT.equals(customer.getStatus())) {
+        if (DORMANT.equals(customer.getStatus())) {
             throw new CustomerSignInException("휴먼 고객입니다.");
         }
 
-        if (Customer.STATUS_WITHDRAW.equals(customer.getStatus())) {
+        if (WITHDRAW.equals(customer.getStatus())) {
             throw new CustomerSignInException("탈퇴된 고객입니다.");
         }
 

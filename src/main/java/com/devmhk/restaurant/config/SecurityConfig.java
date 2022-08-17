@@ -22,8 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomerService customerService;
 
     @Bean
-    UserAuthenticationFalureHandler getFailureHandler() {
-        return new UserAuthenticationFalureHandler();
+    UserAuthenticationFailureHandler getFailureHandler() {
+        return new UserAuthenticationFailureHandler();
     }
 
     @Bean
