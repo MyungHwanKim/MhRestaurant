@@ -2,7 +2,6 @@ package com.devmhk.restaurant.admin.controller;
 
 import com.devmhk.restaurant.admin.dto.CustomerDto;
 import com.devmhk.restaurant.admin.model.CustomerParam;
-import com.devmhk.restaurant.customer.domain.Customer;
 import com.devmhk.restaurant.customer.service.CustomerService;
 import com.devmhk.restaurant.util.BaseController;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +21,9 @@ public class AdminCustomerController extends BaseController {
     public String list(Model model, CustomerParam customerParam) {
         customerParam.init();
         List<CustomerDto> customers = customerService.list(customerParam);
-
         long totalCount = 0;
         if (customers != null && customers.size() > 0) {
-            totalCount = customers.get(0).getTotalCount();
+            totalCount = customerService.totalCount(customerParam);
         }
 
         String queryString = customerParam.getQueryString();
