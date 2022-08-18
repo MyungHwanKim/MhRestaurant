@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 로그인</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+</head>
+<body class="signIn">
+    <a class="title" href="/">
+        <h1> MH 식당 </h1>
+    </a>
+    <hr/>
+    <h2> 로그인 </h2>
+
+    <div id="error" th:text="${errorMessage}"></div>
+
+    <div class="login">
+        <form method="post">
+            <div>
+                아이디 <input type="text" name="username" class="text-field" placeholder="아이디 입력" required/>
+            </div>
+            <div>
+                비밀번호 <input type="password" name="password" class="text-field" placeholder="비밀번호 입력" required/>
+            </div>
+            <div>
+                <button type="submit" class="submit-btn"> 로그인 </button>
+            </div>
+        </form>
+        <div class="additionalSection">
+            <a class="findPassword" href="/customer/find/password"> 비밀번호 찾기 </a>
+            |
+            <a class="signUp" href="/customer/sign-up"> 회원가입 </a>
+        </div>
+    </div>
+
+</body>
+</html>

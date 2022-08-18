@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 관리자 고객 관리</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+</head>
+<body>
+
+    <div class="bar">
+        <a href="/"> 홈 </a>
+        |
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <h1 class="title"> MH 식당 - 고객 관리</h1>
+    <div class="adminMain">
+        <a href="/admin/main.do"> 관리자 홈 </a>
+        |
+        <a href="#"> 메뉴 관리 </a>
+        |
+        <a href="/admin/customer/list.do"> 고객 관리 </a>
+        |
+        <a href="#"> 예약 관리 </a>
+        |
+        <a href="#"> 리뷰 관리 </a>
+    </div>
+    <div class="adminList">
+        <p id="customerTotal">전체 <span th:text="${totalCount}"></span>개</p>
+        <div class="customer-searchForm">
+            <form method="get">
+                <select class="admin-select-field" name="searchType">
+                    <option value="all"> 전체 </option>
+                    <option th:selected="${#strings.equals(param.searchType, 'userId')}" value="userId"> 아이디 </option>
+                    <option th:selected="${#strings.equals(param.searchType, 'userName')}" value="userName"> 이름 </option>
+                    <option th:selected="${#strings.equals(param.searchType, 'phone')}" value="phone"> 연락처 </option>
+                    <option th:selected="${#strings.equals(param.searchType, 'status')}" value="status"> 계정 상태 </option>
+                </select>
+                <input class="admin-text-field" th:value="${param.searchValue}" type="search" name="searchValue" placeholder="검색어 입력"/>
+                <button class="admin-button-field" type="submit"> 조회 </button>
+            </form>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th> 아이디 </th>
+                    <th> 이름 </th>
+                    <th> 성별 </th>
+                    <th> 휴대전화 </th>
+                    <th> 이메일 </th>
+                    <th> 계정 상태 </th>
+                    <th> 가입일 </th>
+                    <th> 최근 방문일 </th>
+                    <th> 최근 로그인 일자 </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.userId}"></td>
+                    <td th:text="${customer.userName}"></td>
+                    <td th:text="${customer.gender}"></td>
+                    <td th:text="${customer.phone}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.status}"></td>
+                    <td th:text="${customer.createdAt}"></td>
+                    <td>2022-07-29</td>
+                    <td>2022-07-29T18:32:07.341347</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="page" th:utext="${pageHtml}"></div>
+    </div>
+</body>
+</html>
