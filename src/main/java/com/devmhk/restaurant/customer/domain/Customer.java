@@ -24,6 +24,7 @@ public class Customer {
     private String phone;
     private String email;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private boolean adminYn;
 
     private boolean emailAuthYn;

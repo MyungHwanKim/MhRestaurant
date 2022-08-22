@@ -43,4 +43,24 @@ public interface CustomerService extends UserDetailsService {
      * 전체 고객 수
      */
     Long totalCount(CustomerParam customerParam);
+
+    /**
+     * 회원 상세 정보
+     */
+    CustomerDto myInfo(String userId);
+
+    /**
+     * 비밀번호 변경
+     */
+    boolean updatePassword(CustomerInput customerInput);
+
+    /**
+     * 회원 정보 수정
+     */
+    boolean updateCustomer(CustomerInput customerInput);
+
+    /**
+     * 이름 변경
+     */
+    boolean changeName(CustomerInput customerInput);
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 이름 변경</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+</head>
+<body>
+    <div class="table_header">
+        <h3>이름 변경</h3>
+    </div>
+    <div class="changeName">
+        <form method="post" id="changeName">
+            <div>
+                현재 비밀번호 <input type="password" name="password" class="text-field" placeholder="비밀번호" minlength="8" required/>
+            </div>
+            <div>
+                변경 이름 <input type="text" name="userName" class="text-field" placeholder="변경할 이름" required/>
+            </div>
+            <div>
+                <button type="submit" class="submit-btn"> 이름 변경 </button>
+            </div>
+        </form>
+        <div id="error" th:text="${message}"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 회원 정보 번경</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('.nameChangeBtn').click(function () {
+                window.open(this.href, '_blank', 'width=500, height=350'); return false;
+            })
+        })
+    </script>
+</head>
+<body>
+
+    <div class="bar">
+        <a href="/"> 홈 </a>
+        |
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <a class="title">
+        <h1> MH 식당 - 회원 정보 변경 </h1>
+    </a>
+    <div class="myMain">
+        <a href="/customer/myMain/myInfo"> 회원 정보 변경 </a>
+        |
+        <a href="/customer/myMain/updatePassword"> 비밀번호 변경 </a>
+        |
+        <a href="/customer/myMain/reservation"> 예약 확인 </a>
+        |
+        <a href="/customer/myMain/review"> 리뷰 목록 </a>
+    </div>
+    <br/>
+    <div class="table_header">
+        <h3>기본정보</h3>
+    </div>
+    <div class="myPageUserUpdate">
+        <form method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <th> 아이디 </th>
+                        <td>
+                            <div>
+                                <span th:text="${myInfo.userId}"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 이름 </th>
+                        <td>
+                            <div>
+                                <span th:text="${myInfo.userName}" id="userName"></span>
+                                <a href="/customer/myMain/myInfo/changeName" class="nameChangeBtn">
+                                    <span>변경하기</span>
+                                </a>
+                            </div>
+                            <p class="nameChangeInfo">이름은 "개명"한 경우에만 변경 가능합니다.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 성별 </th>
+                        <td>
+                            <div>
+                                <span th:text="${myInfo.gender}"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 전화번호 </th>
+                        <td>
+                            <div>
+                                <input name="phone" type="text" th:value="${myInfo.phone}">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 이메일 </th>
+                        <td>
+                            <div>
+                                <span th:text="${myInfo.email}"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 가입일 </th>
+                        <td>
+                            <div>
+                                <span th:text="${myInfo.createdText}"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 수정일 </th>
+                        <td>
+                            <div>
+                                <span th:text="${myInfo.updatedText}"></span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+            <div>
+                <button type="submit" class="submit-btn"> 수정 </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
