@@ -3,10 +3,7 @@ package com.devmhk.restaurant.customer.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -36,4 +33,9 @@ public class Customer {
 
     private String resetPasswordKey;
     private LocalDateTime resetPasswordLimitAt;
+
+    @PreUpdate
+    public void preUpdate() {
+        this.setUpdatedAt(LocalDateTime.now());
+    }
 }

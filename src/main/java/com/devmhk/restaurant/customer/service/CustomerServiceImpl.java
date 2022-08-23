@@ -163,13 +163,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto myInfo(String userId) {
-        Optional<Customer> optionalCustomer = customerRepository.findById(userId);
-        if (optionalCustomer.isEmpty()) {
-            return null;
-        }
+        Customer customer = customerRepository.findById(userId).orElse(null);
 
-        Customer customer = optionalCustomer.get();
-
+        assert customer != null;
         return CustomerDto.of(customer);
     }
 
@@ -186,7 +182,6 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = optionalCustomer.get();
 
         customer.setPhone(customerInput.getPhone());
-        customer.setUpdatedAt(LocalDateTime.now());
         customerRepository.save(customer);
         return true;
     }
