@@ -15,22 +15,23 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
 @RequiredArgsConstructor
+@RequestMapping("/customer")
 @Controller
 public class CustomerController {
 
     private final CustomerService customerService;
 
-    @RequestMapping("/customer/sign-in")
+    @RequestMapping("/sign-in")
     public String signIn() {
         return "customer/sign_in";
     }
 
-    @GetMapping("/customer/sign-up")
+    @GetMapping("/sign-up")
     public String signUp() {
         return "customer/sign_up";
     }
 
-    @PostMapping("/customer/sign-up")
+    @PostMapping("/sign-up")
     public String signUpSubmit(Model model, CustomerInput customerInput) {
         boolean result = customerService.signUp(customerInput);
         model.addAttribute("result", result);
@@ -38,7 +39,7 @@ public class CustomerController {
         return "customer/sign_up_completed";
     }
 
-    @GetMapping("/customer/email-auth")
+    @GetMapping("/email-auth")
     public String emailAuth(Model model, HttpServletRequest request) {
         String uuid = request.getParameter("id");
 
@@ -48,12 +49,12 @@ public class CustomerController {
         return "customer/email_auth";
     }
 
-    @GetMapping("/customer/find/password")
+    @GetMapping("/find/password")
     public String findPassword() {
         return "customer/find_password";
     }
 
-    @PostMapping("/customer/find/password")
+    @PostMapping("/find/password")
     public String findPasswordSubmit(Model model, ResetPasswordInput resetPasswordInput) {
 
         boolean result = false;
@@ -66,7 +67,7 @@ public class CustomerController {
         return "customer/find_password_result";
     }
 
-    @GetMapping("/customer/reset/password")
+    @GetMapping("/reset/password")
     public String resetPassword(Model model, HttpServletRequest request) {
         String uuid = request.getParameter("id");
         boolean result = customerService.checkResetPassword(uuid);
@@ -76,7 +77,7 @@ public class CustomerController {
         return "customer/reset_password";
     }
 
-    @PostMapping("/customer/reset/password")
+    @PostMapping("/reset/password")
     public String resetPasswordSubmit(Model model, ResetPasswordInput resetPasswordInput) {
 
         boolean result = false;
@@ -89,12 +90,12 @@ public class CustomerController {
         return "customer/reset_password_result";
     }
 
-    @GetMapping("/customer/myMain")
+    @GetMapping("/myMain")
     public String myMain() {
         return "customer/myMain";
     }
 
-    @GetMapping("/customer/myMain/myInfo")
+    @GetMapping("/myMain/myInfo")
     public String myInfo(Model model, Principal principal) {
         String userId = principal.getName();
         CustomerDto myInfo = customerService.myInfo(userId);
@@ -103,7 +104,7 @@ public class CustomerController {
         return "customer/myInfo";
     }
 
-    @PostMapping("/customer/myMain/myInfo")
+    @PostMapping("/myMain/myInfo")
     public String myInfoSubmit(CustomerInput customerInput, Principal principal) {
         String userId = principal.getName();
         customerInput.setUserId(userId);
@@ -113,12 +114,12 @@ public class CustomerController {
         return "redirect:/customer/myMain";
     }
 
-    @GetMapping("/customer/myMain/myInfo/changeName")
+    @GetMapping("/myMain/myInfo/changeName")
     public String changeName() {
         return "customer/changeName";
     }
 
-    @PostMapping("/customer/myMain/myInfo/changeName")
+    @PostMapping("/myMain/myInfo/changeName")
     public String changeNameSubmit(Model model, CustomerInput customerInput, Principal principal) {
         String userId = principal.getName();
         customerInput.setUserId(userId);
@@ -131,7 +132,7 @@ public class CustomerController {
         return "customer/changeName_result";
     }
 
-    @GetMapping("/customer/myMain/updatePassword")
+    @GetMapping("/myMain/updatePassword")
     public String updatePassword(Model model, Principal principal) {
         String userId = principal.getName();
         CustomerDto myInfo = customerService.myInfo(userId);
@@ -140,7 +141,7 @@ public class CustomerController {
         return "customer/updatePassword";
     }
 
-    @PostMapping("/customer/myMain/updatePassword")
+    @PostMapping("/myMain/updatePassword")
     public String updatePasswordSubmit(Model model, CustomerInput customerInput, Principal principal) {
         String userId = principal.getName();
         customerInput.setUserId(userId);
