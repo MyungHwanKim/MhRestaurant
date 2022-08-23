@@ -162,6 +162,75 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDto myInfo(String userId) {
+        Customer customer = customerRepository.findById(userId).orElse(null);
+
+        assert customer != null;
+        return CustomerDto.of(customer);
+    }
+
+    @Override
+    public boolean updateCustomer(CustomerInput customerInput) {
+
+        String userId = customerInput.getUserId();
+
+        Optional<Customer> optionalCustomer = customerRepository.findById(userId);
+        if (optionalCustomer.isEmpty()) {
+            return false;
+        }
+
+        Customer customer = optionalCustomer.get();
+
+        customer.setPhone(customerInput.getPhone());
+        customerRepository.save(customer);
+        return true;
+    }
+
+    @Override
+    public boolean changeName(CustomerInput customerInput) {
+
+        String userId = customerInput.getUserId();
+
+        Optional<Customer> optionalCustomer = customerRepository.findById(userId);
+        if (optionalCustomer.isEmpty()) {
+            return false;
+        }
+
+        Customer customer = optionalCustomer.get();
+
+        if (!BCrypt.checkpw(customerInput.getPassword(), customer.getPassword())) {
+            return false;
+        }
+        customer.setUserName(customerInput.getUserName());
+        customerRepository.save(customer);
+
+        return true;
+    }
+
+    @Override
+    public boolean updatePassword(CustomerInput customerInput) {
+
+        String userId = customerInput.getUserId();
+
+        Optional<Customer> optionalCustomer = customerRepository.findById(userId);
+        if (optionalCustomer.isEmpty()) {
+            return false;
+        }
+
+        Customer customer = optionalCustomer.get();
+
+        if (!BCrypt.checkpw(customerInput.getPassword(), customer.getPassword())) {
+            return false;
+        }
+
+        String encPassword = BCrypt.hashpw(customerInput.getNewPassword(), BCrypt.gensalt());
+        customer.setPassword(encPassword);
+        customerRepository.save(customer);
+
+        return true;
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Customer customer = customerRepository.findById(username)
