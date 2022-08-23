@@ -48,13 +48,13 @@ public class CustomerDto {
                 .build();
     }
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     public String getCreatedText() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return createdAt != null ? createdAt.format(formatter) : "";
     }
 
     public String getUpdatedText() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return updatedAt != null ? updatedAt.format(formatter) : "";
     }
 
