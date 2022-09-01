@@ -57,6 +57,4 @@ public class CustomerDto {
     public String getUpdatedText() {
         return updatedAt != null ? updatedAt.format(formatter) : "";
     }
-
-
 }
