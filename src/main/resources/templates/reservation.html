@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        let now_utc = Date.now()
+        let timeOff = new Date().getTimezoneOffset() * 60000;
+        let today = new Date(now_utc-timeOff).toISOString().split("T")[0];
+        document.getElementById("Date").setAttribute("max", today);
+    </script>
+</head>
+<body>
+    <div class="bar">
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <a class="title" href="/">
+        <h1> MH 식당 </h1>
+    </a>
+    <br>
+    <div class="list">
+        <a class="menu" href="#"> 메뉴 소개 </a>
+        |
+        <a class="reserve" href="/reservation"> 예약 </a>
+        |
+        <a class="review" href="#"> 방문자 리뷰 </a>
+    </div>
+    <br/>
+    <div class="table_header">
+        <h3>예약</h3>
+    </div>
+    <div class="reservationForm">
+        <form method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>날짜</th>
+                        <td>
+                            <input class="reservation-date-field" id="Date" type="date" name="reservedDate" required/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>시간</th>
+                        <td>
+                            <label>
+                                <select id="time" class="reservation-time-field" name="reservedTime" required>
+                                    <option value="" disabled selected>시간 선택</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="19:00">19:00</option>
+                                    <option value="20:00">20:00</option>
+                                    <option value="21:00">21:00</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>인원</th>
+                        <td>
+                            <label>
+                                <select class="reservation-headCount-field" name="headCount" required>
+                                    <option value="" disabled selected>인원 선택</option>
+                                    <option value="1">1명</option>
+                                    <option value="2">2명</option>
+                                    <option value="3">3명</option>
+                                    <option value="4">4명</option>
+                                    <option value="5">5명</option>
+                                    <option value="6">6명</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="error" th:text="${message}"></div>
+            <br/>
+            <div>
+                <button type="submit" class="submit-btn"> 예약하기 </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
