@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devmhk.restaurant.admin.mapper.ReservationMapper">
+    <sql id="selectListWhere">
+        <if test="searchType != null and searchValue != null">
+            <choose>
+                <when test="searchType == 'reserveId'">
+                    and reserve_id like concat('%', #{searchValue}, '%')
+                </when>
+                <when test="searchType == 'userId'">
+                    and user_id like concat('%', #{searchValue}, '%')
+                </when>
+                <when test="searchType == 'reservedDate'">
+                    and reserved_date like concat('%', #{searchValue}, '%')
+                </when>
+                <when test="searchType == 'status'">
+                    and status like concat('%', #{searchValue}, '%')
+                </when>
+                <otherwise>
+                    and (
+                    reserve_id like concat('%', #{searchValue}, '%')
+                    or
+                    user_id like concat('%', #{searchValue}, '%')
+                    or
+                    reserved_date like concat('%', #{searchValue}, '%')
+                    or
+                    status like concat('%', #{searchValue}, '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <select id="selectList" resultType="com.devmhk.restaurant.admin.dto.ReservationDto">
+        select *
+        from reservation
+        WHERE status = "RESERVATION_COMPLETE"
+        ORDER BY RESERVED_DATE
+        <include refid="selectListWhere"></include>
+        limit #{pageStart}, #{pageEnd};
+    </select>
+
+    <select id="selectListCount" resultType="long">
+        SELECT count(*)
+        FROM reservation
+        where 1 = 1
+        <include refid="selectListWhere"></include>
+    </select>
+
+    <select id="selectListMyReservation" resultType="com.devmhk.restaurant.admin.dto.ReservationDto">
+        SELECT *
+        FROM reservation
+        where user_id = #{userId}
+        <include refid="selectListWhere"/>
+        ORDER BY CREATED_AT DESC
+
+        limit #{pageStart}, #{pageEnd}
+    </select>
+</mapper>

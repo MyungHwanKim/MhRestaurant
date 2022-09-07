@@ -1,9 +1,11 @@
 package com.devmhk.restaurant.customer.controller;
 
 import com.devmhk.restaurant.admin.dto.CustomerDto;
+import com.devmhk.restaurant.admin.dto.ReservationDto;
 import com.devmhk.restaurant.customer.model.CustomerInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import com.devmhk.restaurant.customer.service.CustomerService;
+import com.devmhk.restaurant.reservation.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/customer")
@@ -20,6 +23,7 @@ import java.security.Principal;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final ReservationService reservationService;
 
     @RequestMapping("/sign-in")
     public String signIn() {
@@ -152,5 +156,14 @@ public class CustomerController {
         }
         model.addAttribute("result", result);
         return "redirect:/customer/myMain";
+    }
+
+    @GetMapping("/myMain/reservation")
+    public String myReservation(Model model, Principal principal) {
+        String userId = principal.getName();
+        List<ReservationDto> lists = reservationService.myReservation(userId);
+
+        model.addAttribute("lists", lists);
+        return "customer/reservation";
     }
 }

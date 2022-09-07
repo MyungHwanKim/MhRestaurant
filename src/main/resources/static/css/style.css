@@ -8,7 +8,7 @@ h2, .hot, .resultPassword {
     text-decoration: none;
 }
 
-#customerTotal {
+#customerTotal, #reservationTotal {
     font-weight: bold;
     text-align: right;
     font-size: 17px;
@@ -16,8 +16,7 @@ h2, .hot, .resultPassword {
 }
 
 .list {
-    width: 100px;
-    margin-right: 0;
+    text-align: center;
 }
 
 .list div, .list a {
@@ -146,7 +145,7 @@ h2, .hot, .resultPassword {
     font-weight: bold;
 }
 
-.customer-searchForm {
+.customer-searchForm, .reservation-searchForm {
     text-align: right;
 
 }
@@ -241,4 +240,131 @@ h2, .hot, .resultPassword {
     border-radius: 5px;
     width: 200px;
     font-weight: bold;
+}
+
+/*예약*/
+.reservationForm {
+    width: 600px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.reservationForm table {
+    margin: auto;
+    width: 560px;
+    height: 300px;
+    border: 1px solid #222;
+    background-color: white;
+    border-collapse: collapse;
+}
+.reservationForm th{
+    width: 200px;
+    border: 1px solid #222;
+    background: #EEEFF1;
+}
+
+.reservationForm td {
+    border: 1px solid #222;
+    text-align: center;
+}
+
+.reservationForm td div {
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+}
+
+.reservation-headCount-field {
+    font-size: 17px;
+    margin: 0;
+    border-radius: 8px;
+    padding: 10px;
+    width: 150px;
+}
+
+.reservation-time-field {
+    font-size: 17px;
+    margin: 0;
+    border-radius: 8px;
+    padding: 10px;
+    width: 150px;
+}
+
+.reservation-date-field {
+    font-size: 17px;
+    margin: 0;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.home, .home a {
+    font-size: 15px;
+    color: black;
+    margin-bottom: 30px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#resultReservation {
+   text-align: center;
+}
+
+#resultReservation p {
+    width: 350px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* 예약 확인 */
+.myPageUserReservation table {
+    border-collapse: collapse;
+    line-height: 1.5;
+    width: 950px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.myPageUserReservation thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: black;
+    border-bottom: 3px solid #000;
+}
+
+.myPageUserReservation tbody td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+
+.myPageUserReservation tbody td a {
+    color: black;
+}
+
+.customer-select-field, .customer-button-field {
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100px;
 }
