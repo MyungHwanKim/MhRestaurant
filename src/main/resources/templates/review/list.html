@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>MH 식당 - 방문자 리뷰</title>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+</head>
+<body>
+
+  <div class="bar">
+      <a href="/customer/myMain"> MY 관리 </a>
+      |
+      <a th:if="${userId eq false}" href="/customer/sign-in"> 로그인/회원가입 </a>
+      <a th:if="${userId}" href="/customer/sign-out"> 로그아웃 </a>
+  </div>
+  <hr/>
+  <a class="title" href="/">
+      <h1> MH 식당 </h1>
+  </a>
+  <br>
+  <div class="list">
+      <a class="menu" href="#"> 메뉴 소개 </a>
+      |
+      <a class="reserve" href="/reservation"> 예약 </a>
+      |
+      <a class="review" href="/review/list"> 방문자 리뷰 </a>
+  </div>
+  <br/>
+  <div class="table_header">
+      <h3>방문자 리뷰</h3>
+  </div>
+  <div class="customerReviewList">
+      <p id="reviewTotal">전체 리뷰 수 <span th:text="${totalCount}"></span>개</p>
+      <table class="reviewTotalInfo">
+          <thead>
+            <tr>
+                <th>전체 평균</th>
+                <th>서비스 평균</th>
+                <th>맛 평균</th>
+                <th>양 평균</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td th:text="${avgTotalScore}"></td>
+                <td th:text="${avgServiceScore}"></td>
+                <td th:text="${avgDeliciousScore}"></td>
+                <td th:text="${avgAmountScore}"></td>
+            </tr>
+          </tbody>
+      </table>
+      <br/>
+      <table class="reviewInfo">
+          <thead>
+              <tr>
+                <th> 리뷰 번호 </th>
+                <th> 방문일 </th>
+                <th> 내용 </th>
+                <th> 서비스 </th>
+                <th> 맛 </th>
+                <th> 양 </th>
+                <th> 작성일 </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr th:each="review : ${reviews}">
+                <td th:text="${review.reviewId}"></td>
+                <td th:text="${review.getReservedText()}"></td>
+                <td th:utext="${review.comment}"></td>
+                <td th:text="${review.serviceScore}"></td>
+                <td th:text="${review.deliciousScore}"></td>
+                <td th:text="${review.amountScore}"></td>
+                <td th:text="${review.getCreatedText()}"></td>
+              </tr>
+          </tbody>
+      </table>
+      <div class="page" th:utext="${pageHtml}"></div>
+  </div>
+</body>
+</html>

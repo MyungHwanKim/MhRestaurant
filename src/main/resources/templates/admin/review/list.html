@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 리뷰 관리</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('form[name=deleteForm]').on('submit', function () {
+
+                if (!confirm(' 리뷰를 삭제하시겠습니까? ')) {
+                    return false;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="bar">
+        <a href="/"> 홈 </a>
+        |
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <h1 class="title"> MH 식당 - 리뷰 관리 </h1>
+    <div class="adminMain">
+        <a href="/admin/main.do"> 관리자 홈 </a>
+        |
+        <a href="#"> 메뉴 관리 </a>
+        |
+        <a href="/admin/customer/list.do"> 고객 관리 </a>
+        |
+        <a href="/admin/reservation/list.do"> 예약 관리 </a>
+        |
+        <a href="/admin/review/list.do"> 리뷰 관리 </a>
+    </div>
+    <div class="adminList">
+        <p id="reviewTotal">전체 <span th:text="${totalCount}"></span>개</p>
+        <table>
+            <thead>
+            <tr>
+                <th> 리뷰 번호 </th>
+                <th> 방문일 </th>
+                <th> 내용 </th>
+                <th> 서비스 </th>
+                <th> 맛 </th>
+                <th> 양 </th>
+                <th> 작성일 </th>
+                <th> 비고 </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="review : ${reviews}">
+                    <td th:text="${review.reviewId}"></td>
+                    <td th:text="${review.getReservedText()}"></td>
+                    <td th:utext="${review.comment}"></td>
+                    <td th:text="${review.serviceScore}"></td>
+                    <td th:text="${review.deliciousScore}"></td>
+                    <td th:text="${review.amountScore}"></td>
+                    <td th:text="${review.getCreatedText()}"></td>
+                    <td>
+                        <div>
+                            <form name="deleteForm" method="post" action="/admin/review/delete.do">
+                                <input type="hidden" name="reviewId" th:value="${review.reviewId}">
+                                <button type="submit"> 삭제 </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="page" th:utext="${pageHtml}"></div>
+    </div>
+</body>
+</html>

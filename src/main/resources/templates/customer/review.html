@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 리뷰 확인</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+</head>
+<body>
+
+    <div class="bar">
+        <a href="/"> 홈 </a>
+        |
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <a class="title">
+        <h1> MH 식당 - 리뷰 확인 </h1>
+    </a>
+    <div class="myMain">
+        <a href="/customer/myMain/myInfo"> 회원 정보 변경 </a>
+        |
+        <a href="/customer/myMain/updatePassword"> 비밀번호 변경 </a>
+        |
+        <a href="/customer/myMain/reservation"> 예약 확인 </a>
+        |
+        <a href="/customer/myMain/review"> 리뷰 확인 </a>
+    </div>
+    <br/>
+    <div class="table_header">
+        <h3>리뷰 확인</h3>
+    </div>
+    <div class="myPageUserReview">
+        <p id="reviewTotal">전체 <span th:text="${totalCount}"></span>개</p>
+        <br/>
+        <table>
+            <thead>
+            <tr>
+                <th> 리뷰 번호 </th>
+                <th> 방문일 </th>
+                <th> 내용 </th>
+                <th> 서비스 </th>
+                <th> 맛 </th>
+                <th> 양 </th>
+                <th> 작성일 </th>
+                <th> 비고 </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="list : ${lists}">
+                    <td th:text="${list.reviewId}"></td>
+                    <td th:text="${list.getReservedText()}"></td>
+                    <td th:utext="${list.comment}"></td>
+                    <td th:text="${list.serviceScore}"></td>
+                    <td th:text="${list.deliciousScore}"></td>
+                    <td th:text="${list.amountScore}"></td>
+                    <td th:text="${list.getCreatedText()}"></td>
+                    <div th:if="${!list.updateYn}">
+                        <td> - </td>
+                    </div>
+                    <div th:if="${list.updateYn}">
+                        <td><a th:href="@{/review/update/{id}(id=${list.reviewId})}">수정</a></td>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
+        <div class="page" th:utext="${pageHtml}"></div>
+    </div>
+</body>
+</html>
