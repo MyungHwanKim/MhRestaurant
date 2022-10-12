@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devmhk.restaurant.mapper.ReviewMapper">
+
+    <select id="selectList" resultType="com.devmhk.restaurant.review.dto.ReviewDto">
+        select *
+        from review
+        where 1 = 1
+        order by review_id desc
+        limit #{pageStart}, #{pageEnd};
+    </select>
+
+    <select id="selectListMyReview" resultType="com.devmhk.restaurant.review.dto.ReviewDto">
+        SELECT *
+        FROM review
+        where customer_id = #{customerId}
+        ORDER BY CREATED_AT DESC
+        limit #{pageStart}, #{pageEnd};
+    </select>
+
+    <select id="selectListCount" resultType="long">
+        SELECT count(*)
+        FROM review
+        where 1 = 1
+    </select>
+
+    <select id="mySelectListCount" resultType="long">
+        SELECT count(*)
+        FROM review
+        where customer_id = #{customerId}
+    </select>
+
+    <select id="selectServiceAvg" resultType="double">
+        SELECT round(Avg(service_score), 2)
+        FROM review
+    </select>
+
+    <select id="selectDeliciousAvg" resultType="double">
+        SELECT round(Avg(delicious_score), 2)
+        FROM review
+    </select>
+
+    <select id="selectAmountAvg" resultType="double">
+        SELECT round(Avg(amount_score), 2)
+        FROM review
+    </select>
+
+    <select id="selectSTotalAvg" resultType="double">
+        SELECT round((avg(service_score) + avg(delicious_score) + avg(amount_score)) / 3, 2)
+        FROM review
+    </select>
+</mapper>
