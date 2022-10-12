@@ -1,4 +1,4 @@
-package com.devmhk.restaurant.admin.mapper;
+package com.devmhk.restaurant.mapper;
 
 import com.devmhk.restaurant.admin.dto.CustomerDto;
 import com.devmhk.restaurant.admin.model.CustomerParam;

@@ -1,4 +1,4 @@
-package com.devmhk.restaurant.util;
+package com.devmhk.restaurant.util.page;
 
 public class PageUtil {
     /**
