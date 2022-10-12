@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
 </head>
 <body>
-
     <div class="bar">
         <a href="/"> 홈 </a>
         |
@@ -26,13 +25,15 @@
         |
         <a href="/customer/myMain/reservation"> 예약 확인 </a>
         |
-        <a href="/customer/myMain/review"> 리뷰 목록 </a>
+        <a href="/customer/myMain/review"> 리뷰 확인 </a>
     </div>
     <br/>
     <div class="table_header">
         <h3>예약 목록</h3>
     </div>
     <div class="myPageUserReservation">
+        <p id="myReservationTotal">전체 <span th:text="${totalCount}"></span>개</p>
+        <br/>
         <table>
             <thead>
             <tr>
@@ -40,6 +41,7 @@
                 <th> 예약 인원 </th>
                 <th> 예약 날짜 </th>
                 <th> 상태 </th>
+                <th> 비고 </th>
             </tr>
             </thead>
             <tbody>
@@ -48,9 +50,19 @@
                 <td th:text="${list.headCount}"></td>
                 <td th:text="${list.getReservedAtText()}"></td>
                 <td th:text="${list.status}"></td>
+                <div th:if="${!#strings.equals(list.status, 'VISIT_COMPLETE')}">
+                    <td> - </td>
+                </div>
+                <div th:if="${#strings.equals(list.status, 'VISIT_COMPLETE')} and ${!list.isReview()}">
+                    <td><a th:href="@{/review/register/{id}(id=${list.reserveId})}"> 리뷰 작성 </a></td>
+                </div>
+                <div th:if="${list.isReview()}">
+                    <td> 리뷰 작성 완료 </td>
+                </div>
             </tr>
             </tbody>
         </table>
+        <div class="page" th:utext="${pageHtml}"></div>
     </div>
 </body>
 </html>
