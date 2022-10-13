@@ -1,6 +1,6 @@
 package com.devmhk.restaurant.admin.dto;
 
-import com.devmhk.restaurant.reservation.domain.ReservationStatus;
+import com.devmhk.restaurant.util.status.ReservationStatus;
 import lombok.*;
 
 import javax.persistence.EnumType;
@@ -24,6 +24,7 @@ public class ReservationDto {
     private LocalDateTime updatedAt;
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
+    private boolean isReview;
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private static final DateTimeFormatter reservedFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

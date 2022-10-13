@@ -22,10 +22,15 @@ public interface ReservationService {
     /**
      * 전체 예약 수
      */
-    long totalCount(ReservationParam reservationParam);
+    Long totalCount(ReservationParam reservationParam);
 
     /**
      * 나의 예약 내역
      */
-    List<ReservationDto> myReservation(String userId);
+    List<ReservationDto> myReservation(ReservationParam reservationParam);
+
+    /**
+     * 나의 예약 수
+     */
+    Long myTotalCount(ReservationParam reservationParam);
 }

@@ -1,6 +1,6 @@
 package com.devmhk.restaurant.admin.dto;
 
-import com.devmhk.restaurant.customer.domain.AccountStatus;
+import com.devmhk.restaurant.util.status.AccountStatus;
 import com.devmhk.restaurant.customer.domain.Customer;
 import lombok.*;
 

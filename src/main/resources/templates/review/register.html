@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 리뷰 작성</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $('#submitForm').on('submit', function () {
+                oEditors.getById["comment"].exec("UPDATE_CONTENTS_FIELD", []);
+                var comment = document.getElementById("comment").value;
+                if(comment == ""  || comment == null || comment == '&nbsp;' || comment == '<p>&nbsp;</p>' || comment == '<p><br></p>')  {
+                    alert("내용을 입력하세요.");
+                    oEditors.getById["comment"].exec("FOCUS");
+                    return false;
+                }
+
+                try {
+                    comment.submit();
+                } catch(e) {}
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="bar">
+        <a href="/"> 홈 </a>
+        |
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <a class="title">
+        <h1> MH 식당 - 리뷰 작성 </h1>
+    </a>
+    <div class="myMain">
+        <a href="/customer/myMain/myInfo"> 회원 정보 변경 </a>
+        |
+        <a href="/customer/myMain/updatePassword"> 비밀번호 변경 </a>
+        |
+        <a href="/customer/myMain/reservation"> 예약 확인 </a>
+        |
+        <a href="/customer/myMain/review"> 리뷰 확인 </a>
+    </div>
+    <br/>
+    <div class="table_header">
+        <h3>리뷰 작성</h3>
+    </div>
+    <div class="reviewForm">
+        <form id="submitForm" method="post">
+            <table>
+                <tbody>
+                    <tr>
+                        <th>서비스 점수</th>
+                        <td>
+                            <select class="review-service-score-field" name="serviceScore" required>
+                                <option value="" disabled selected> 점수 </option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>맛 점수</th>
+                        <td>
+                            <select class="review-delicious-score-field" name="deliciousScore" required>
+                                <option value="" disabled selected> 점수 </option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>양 점수</th>
+                        <td>
+                            <select class="review-amount-score-field" name="amountScore" required>
+                                <option value="" disabled selected> 점수 </option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용</th>
+                        <td>
+                            <textarea id="comment" name="comment"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="error" th:text="${message}"></div>
+            <br/>
+            <div>
+                <button type="submit" class="submit-btn"> 작성 </button>
+                <div id="back-page">
+                    <a href="/customer/myMain/reservation"> 이전 </a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="/res/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var oEditors = [];
+        setTimeout(function () {
+            nhn.husky.EZCreator.createInIFrame({
+                oAppRef: oEditors,
+                elPlaceHolder: "comment",
+                sSkinURI: "/res/se2/SmartEditor2Skin.html",
+                fCreator: "createSEditor2"
+            });
+        },100);
+    </script>
+</body>
+</html>

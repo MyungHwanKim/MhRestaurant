@@ -123,7 +123,7 @@ h2, .hot, .resultPassword {
 .adminList tbody td {
     width: 350px;
     padding: 10px;
-    vertical-align: top;
+    vertical-align: center;
     border-bottom: 1px solid #ccc;
 }
 
@@ -145,9 +145,8 @@ h2, .hot, .resultPassword {
     font-weight: bold;
 }
 
-.customer-searchForm, .reservation-searchForm {
+.customer-searchForm, .reservation-searchForm, .review-searchForm {
     text-align: right;
-
 }
 
 .admin-select-field, .admin-button-field {
@@ -367,4 +366,161 @@ h2, .hot, .resultPassword {
     border-radius: 5px;
     padding: 10px;
     width: 100px;
+}
+
+/* 리뷰 목록 */
+.review-select-field, .review-button-field {
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100px;
+}
+
+.review-text-field {
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 150px;
+}
+
+#reviewTotal, #avgTotal, #avgService, #avgDelicious, #avgAmount, #myReservationTotal{
+    font-weight: bold;
+    text-align: center;
+    font-size: 17px;
+}
+
+.reviewInfo {
+    border-collapse: collapse;
+    line-height: 1.5;
+    width: 1300px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.reviewInfo thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: black;
+    border-bottom: 3px solid #000;
+}
+
+.reviewInfo tbody td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+
+.reviewTotalInfo {
+    border-collapse: collapse;
+    line-height: 1.5;
+    width: 500px;
+    border: 1px solid #222;
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.reviewTotalInfo thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: black;
+    border-bottom: 3px solid #000;
+}
+
+.reviewTotalInfo tbody td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+}
+
+/* 리뷰 작성, 수정 */
+.reviewForm {
+    width: 820px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.reviewForm table {
+    margin: auto;
+    width: 780px;
+    height: 300px;
+    border: 1px solid #222;
+    background-color: white;
+    border-collapse: collapse;
+}
+.reviewForm th{
+    width: 200px;
+    border: 1px solid #222;
+    background: #EEEFF1;
+}
+
+.reviewForm td {
+    border: 1px solid #222;
+    text-align: center;
+}
+
+.reviewForm td div {
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+}
+
+.review-service-score-field, .review-delicious-score-field, .review-amount-score-field {
+    font-size: 17px;
+    margin: 0;
+    border-radius: 8px;
+    padding: 10px;
+    width: 150px;
+}
+
+/* 리뷰 확인 */
+.myPageUserReview table {
+    border-collapse: collapse;
+    line-height: 1.5;
+    width: 950px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.myPageUserReview thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: black;
+    border-bottom: 3px solid #000;
+}
+
+.myPageUserReview tbody td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+
+.myPageUserReview tbody td a {
+    color: black;
 }

@@ -3,7 +3,7 @@ package com.devmhk.restaurant.admin.controller;
 import com.devmhk.restaurant.admin.dto.ReservationDto;
 import com.devmhk.restaurant.admin.model.ReservationParam;
 import com.devmhk.restaurant.reservation.service.ReservationService;
-import com.devmhk.restaurant.util.BaseController;
+import com.devmhk.restaurant.util.page.BaseController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

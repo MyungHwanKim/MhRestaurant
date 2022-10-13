@@ -1,7 +1,7 @@
 package com.devmhk.restaurant.customer.service;
 
 import com.devmhk.restaurant.admin.dto.CustomerDto;
-import com.devmhk.restaurant.admin.mapper.CustomerMapper;
+import com.devmhk.restaurant.mapper.CustomerMapper;
 import com.devmhk.restaurant.admin.model.CustomerParam;
 import com.devmhk.restaurant.component.MailComponent;
 import com.devmhk.restaurant.customer.domain.Customer;
@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.devmhk.restaurant.customer.domain.AccountStatus.*;
+import static com.devmhk.restaurant.util.status.AccountStatus.*;
 
 @RequiredArgsConstructor
 @Service
@@ -35,7 +35,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerMapper customerMapper;
     @Override
     public boolean signUp(CustomerInput customerInput) {
-        Optional<Customer> optionalCustomer = customerRepository.findById(customerInput.getUserId());
+        Optional<Customer> optionalCustomer = customerRepository.findByUserId(customerInput.getUserId());
         if (optionalCustomer.isPresent()) {
             return false;
         }
@@ -163,7 +163,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto myInfo(String userId) {
-        Customer customer = customerRepository.findById(userId).orElse(null);
+        Customer customer = customerRepository.findByUserId(userId).orElse(null);
 
         assert customer != null;
         return CustomerDto.of(customer);
@@ -172,9 +172,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean updateCustomer(CustomerInput customerInput) {
 
-        String userId = customerInput.getUserId();
-
-        Optional<Customer> optionalCustomer = customerRepository.findById(userId);
+        Optional<Customer> optionalCustomer = customerRepository.findByUserId(customerInput.getUserId());
         if (optionalCustomer.isEmpty()) {
             return false;
         }
@@ -189,9 +187,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean changeName(CustomerInput customerInput) {
 
-        String userId = customerInput.getUserId();
-
-        Optional<Customer> optionalCustomer = customerRepository.findById(userId);
+        Optional<Customer> optionalCustomer = customerRepository.findByUserId(customerInput.getUserId());
         if (optionalCustomer.isEmpty()) {
             return false;
         }
@@ -210,9 +206,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean updatePassword(CustomerInput customerInput) {
 
-        String userId = customerInput.getUserId();
-
-        Optional<Customer> optionalCustomer = customerRepository.findById(userId);
+        Optional<Customer> optionalCustomer = customerRepository.findByUserId(customerInput.getUserId());
         if (optionalCustomer.isEmpty()) {
             return false;
         }
@@ -233,7 +227,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Customer customer = customerRepository.findById(username)
+        Customer customer = customerRepository.findByUserId(username)
                 .orElseThrow(() -> new UsernameNotFoundException(" 고객 정보가 존재하지 않습니다. "));
 
         if (REQ.equals(customer.getStatus())) {

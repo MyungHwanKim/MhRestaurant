@@ -2,10 +2,15 @@ package com.devmhk.restaurant.customer.controller;
 
 import com.devmhk.restaurant.admin.dto.CustomerDto;
 import com.devmhk.restaurant.admin.dto.ReservationDto;
+import com.devmhk.restaurant.admin.model.ReservationParam;
+import com.devmhk.restaurant.admin.model.ReviewParam;
 import com.devmhk.restaurant.customer.model.CustomerInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import com.devmhk.restaurant.customer.service.CustomerService;
 import com.devmhk.restaurant.reservation.service.ReservationService;
+import com.devmhk.restaurant.review.dto.ReviewDto;
+import com.devmhk.restaurant.review.service.ReviewService;
+import com.devmhk.restaurant.util.page.BaseController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,15 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/customer")
 @Controller
-public class CustomerController {
+public class CustomerController extends BaseController {
 
     private final CustomerService customerService;
     private final ReservationService reservationService;
+    private final ReviewService reviewService;
 
     @RequestMapping("/sign-in")
     public String signIn() {
@@ -159,11 +166,48 @@ public class CustomerController {
     }
 
     @GetMapping("/myMain/reservation")
-    public String myReservation(Model model, Principal principal) {
+    public String myReservation(Model model, ReservationParam reservationParam, Principal principal) {
+        reservationParam.init();
         String userId = principal.getName();
-        List<ReservationDto> lists = reservationService.myReservation(userId);
+        reservationParam.setUserId(userId);
+        List<ReservationDto> lists = reservationService.myReservation(reservationParam);
+        long totalCount = 0;
+        if (lists != null && lists.size() > 0) {
+            totalCount = reservationService.myTotalCount(reservationParam);
+        }
 
+        String queryString = reservationParam.getQueryString();
+        String pageHtml = getPagerHtml(totalCount, reservationParam.getPageSize(), reservationParam.getPageIndex(), queryString);
         model.addAttribute("lists", lists);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("pageHtml", pageHtml);
+
         return "customer/reservation";
+    }
+
+    @GetMapping("/myMain/review")
+    public String myReview(Model model, ReviewParam reviewParam, Principal principal) {
+        reviewParam.init();
+        String userId = principal.getName();
+        List<ReviewDto> lists = reviewService.myReview(reviewParam, userId);
+        for (ReviewDto list : lists) {
+            if (list.getCreatedAt().plusDays(3).isBefore(LocalDateTime.now())) {
+                list.setUpdateYn(false);
+            } else {
+                list.setUpdateYn(true);
+            }
+        }
+        long totalCount = 0;
+        if (lists != null && lists.size() > 0) {
+            totalCount = reviewService.myTotalCount(reviewParam);
+        }
+
+        String queryString = reviewParam.getQueryString();
+        String pageHtml = getPagerHtml(totalCount, reviewParam.getPageSize(), reviewParam.getPageIndex(), queryString);
+        model.addAttribute("lists", lists);
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("pageHtml", pageHtml);
+
+        return "customer/review";
     }
 }

@@ -1,7 +1,7 @@
 package com.devmhk.restaurant.reservation.service;
 
 import com.devmhk.restaurant.admin.dto.ReservationDto;
-import com.devmhk.restaurant.admin.mapper.ReservationMapper;
+import com.devmhk.restaurant.mapper.ReservationMapper;
 import com.devmhk.restaurant.admin.model.ReservationParam;
 import com.devmhk.restaurant.customer.domain.Customer;
 import com.devmhk.restaurant.customer.repository.CustomerRepository;
@@ -11,20 +11,19 @@ import com.devmhk.restaurant.reservation.model.ReservationInput;
 import com.devmhk.restaurant.reservation.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 import static com.devmhk.restaurant.exception.ErrorCode.*;
-import static com.devmhk.restaurant.reservation.domain.ReservationStatus.RESERVATION_COMPLETE;
+import static com.devmhk.restaurant.util.status.ReservationStatus.RESERVATION_COMPLETE;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class ReservationServiceImpl implements ReservationService{
 
     private final ReservationRepository reservationRepository;
@@ -32,22 +31,20 @@ public class ReservationServiceImpl implements ReservationService{
     private final ReservationMapper reservationMapper;
 
     @Override
+    @Transactional
     public ServiceResult reserve(ReservationInput reservationInput) {
 
-        String userId = reservationInput.getUserId();
-        LocalDate reservedDate = reservationInput.getReservedDate();
-        LocalTime reservedTime = reservationInput.getReservedTime();
-        LocalDateTime reservedAt = LocalDateTime.of(reservedDate, reservedTime);
+        LocalDateTime reservedAt = LocalDateTime.of(reservationInput.getReservedDate(), reservationInput.getReservedTime());
         System.out.println(reservedAt);
 
-        Optional<Customer> optionalCustomer = customerRepository.findById(userId);
+        Optional<Customer> optionalCustomer = customerRepository.findByUserId(reservationInput.getUserId());
         if (optionalCustomer.isEmpty()) {
             return new ServiceResult(CUSTOMER_NOT_FOUND);
         }
 
-        Optional<Reservation> optionalReservation = reservationRepository.findByUserIdAndReservedAt(userId, reservedAt);
+        Optional<Reservation> optionalReservation = reservationRepository.findByUserIdAndReservedAt(reservationInput.getUserId(), reservedAt);
         if (optionalReservation.isPresent()) {
-            return new ServiceResult(ALREADY_RESERVED_EXIST);
+            return new ServiceResult(ALREADY_EXIST_RESERVED);
         }
 
         long reservedCount = reservationRepository.countByReservedAtAndStatus(
@@ -57,7 +54,7 @@ public class ReservationServiceImpl implements ReservationService{
         }
 
         StringBuilder reserveId = new StringBuilder();
-        String[] items = String.valueOf(reservedDate).split("-");
+        String[] items = String.valueOf(reservationInput.getReservedDate()).split("-");
         for (String item: items) {
             reserveId.append(item);
         }
@@ -70,6 +67,7 @@ public class ReservationServiceImpl implements ReservationService{
                 .reservedAt(reservedAt)
                 .createdAt(LocalDateTime.now())
                 .status(RESERVATION_COMPLETE)
+                .isReview(false)
                 .build();
         reservationRepository.save(reservation);
         return new ServiceResult(true);
@@ -81,14 +79,17 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public long totalCount(ReservationParam reservationParam) {
+    public Long totalCount(ReservationParam reservationParam) {
         return reservationMapper.selectListCount(reservationParam);
     }
 
     @Override
-    public List<ReservationDto> myReservation(String userId) {
-        ReservationParam reservationParam = new ReservationParam();
-        reservationParam.setUserId(userId);
+    public List<ReservationDto> myReservation(ReservationParam reservationParam) {
         return reservationMapper.selectListMyReservation(reservationParam);
+    }
+
+    @Override
+    public Long myTotalCount(ReservationParam reservationParam) {
+        return reservationMapper.mySelectListCount(reservationParam);
     }
 }

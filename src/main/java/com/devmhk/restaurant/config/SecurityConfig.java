@@ -41,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/customer/sign-up",
                         "/customer/email-auth",
                         "/customer/find/password",
-                        "/customer/reset/password")
+                        "/customer/reset/password",
+                        "/review/list")
                 .permitAll();
 
         http.authorizeRequests()

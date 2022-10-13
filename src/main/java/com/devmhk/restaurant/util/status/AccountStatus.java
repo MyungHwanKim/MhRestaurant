@@ -1,4 +1,4 @@
-package com.devmhk.restaurant.customer.domain;
+package com.devmhk.restaurant.util.status;
 
 public enum AccountStatus {
     REQ,
