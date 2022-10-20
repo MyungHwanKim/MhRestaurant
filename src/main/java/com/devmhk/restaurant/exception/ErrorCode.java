@@ -7,6 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
     CUSTOMER_NOT_FOUND("사용자가 존재하지 않습니다."),
+    USER_ID_NOT_SAME("아이디가 일치하지 않습니다."),
+    PASSWORD_NOT_SAME("비밀번호가 일치하지 않습니다.."),
     ALREADY_EXIST_RESERVED("이미 예약 날짜가 존재합니다."),
     NOT_EXIST_RESERVE_TIME("선택하신 예약시간은 이미 마감되었습니다."),
     ALREADY_EXIST_REVIEW("이미 작성하신 리뷰가 존재합니다."),

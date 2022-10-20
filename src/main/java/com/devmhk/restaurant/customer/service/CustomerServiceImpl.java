@@ -1,15 +1,17 @@
 package com.devmhk.restaurant.customer.service;
 
 import com.devmhk.restaurant.admin.dto.CustomerDto;
-import com.devmhk.restaurant.mapper.CustomerMapper;
 import com.devmhk.restaurant.admin.model.CustomerParam;
 import com.devmhk.restaurant.component.MailComponent;
 import com.devmhk.restaurant.customer.domain.Customer;
 import com.devmhk.restaurant.customer.exception.CustomerNotEmailAuthException;
 import com.devmhk.restaurant.customer.exception.CustomerSignInException;
 import com.devmhk.restaurant.customer.model.CustomerInput;
+import com.devmhk.restaurant.customer.model.DeleteAccountInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import com.devmhk.restaurant.customer.repository.CustomerRepository;
+import com.devmhk.restaurant.exception.ServiceResult;
+import com.devmhk.restaurant.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +27,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.devmhk.restaurant.exception.ErrorCode.PASSWORD_NOT_SAME;
+import static com.devmhk.restaurant.exception.ErrorCode.USER_ID_NOT_SAME;
 import static com.devmhk.restaurant.util.status.AccountStatus.*;
 
 @RequiredArgsConstructor
@@ -33,6 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final MailComponent mailComponent;
     private final CustomerMapper customerMapper;
+
     @Override
     public boolean signUp(CustomerInput customerInput) {
         Optional<Customer> optionalCustomer = customerRepository.findByUserId(customerInput.getUserId());
@@ -222,6 +227,32 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customer);
 
         return true;
+    }
+
+    @Override
+    public ServiceResult deleteAccount(DeleteAccountInput input) {
+        Optional<Customer> optionalCustomer = customerRepository.findByUserId(input.getUserId());
+
+        if (optionalCustomer.isEmpty()) {
+            return new ServiceResult(USER_ID_NOT_SAME);
+        }
+        Customer customer = optionalCustomer.get();
+        if (!BCrypt.checkpw(input.getPassword(), customer.getPassword())) {
+            return new ServiceResult(PASSWORD_NOT_SAME);
+        }
+
+        customer.setPassword(null);
+        customer.setUserName("탈퇴회원");
+        customer.setGender(null);
+        customer.setPhone(null);
+        customer.setEmail(null);
+        customer.setEmailAuthAt(null);
+        customer.setEmailAuthKey(null);
+        customer.setStatus(WITHDRAW);
+
+        customerRepository.save(customer);
+
+        return new ServiceResult(true);
     }
 
     @Override
