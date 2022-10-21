@@ -3,7 +3,9 @@ package com.devmhk.restaurant.customer.service;
 import com.devmhk.restaurant.admin.dto.CustomerDto;
 import com.devmhk.restaurant.admin.model.CustomerParam;
 import com.devmhk.restaurant.customer.model.CustomerInput;
+import com.devmhk.restaurant.customer.model.DeleteAccountInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
+import com.devmhk.restaurant.exception.ServiceResult;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -63,4 +65,9 @@ public interface CustomerService extends UserDetailsService {
      * 이름 변경
      */
     boolean changeName(CustomerInput customerInput);
+
+    /**
+     * 회원 탈퇴
+     */
+    ServiceResult deleteAccount(DeleteAccountInput input);
 }

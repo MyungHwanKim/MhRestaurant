@@ -5,8 +5,10 @@ import com.devmhk.restaurant.admin.dto.ReservationDto;
 import com.devmhk.restaurant.admin.model.ReservationParam;
 import com.devmhk.restaurant.admin.model.ReviewParam;
 import com.devmhk.restaurant.customer.model.CustomerInput;
+import com.devmhk.restaurant.customer.model.DeleteAccountInput;
 import com.devmhk.restaurant.customer.model.ResetPasswordInput;
 import com.devmhk.restaurant.customer.service.CustomerService;
+import com.devmhk.restaurant.exception.ServiceResult;
 import com.devmhk.restaurant.reservation.service.ReservationService;
 import com.devmhk.restaurant.review.dto.ReviewDto;
 import com.devmhk.restaurant.review.service.ReviewService;
@@ -209,5 +211,23 @@ public class CustomerController extends BaseController {
         model.addAttribute("pageHtml", pageHtml);
 
         return "customer/review";
+    }
+
+    @GetMapping("/myMain/delete")
+    public String deleteAccount() {
+        return "customer/delete_account";
+    }
+
+    @PostMapping("/myMain/delete")
+    public String deleteAccountSubmit(DeleteAccountInput input, Model model, Principal principal) {
+        input.setUserId(principal.getName());
+        ServiceResult result = customerService.deleteAccount(input);
+        if (!result.isResult()) {
+            model.addAttribute("message", result.getMessage());
+            return "customer/delete_account";
+        }
+        model.addAttribute("result", true);
+        return "redirect:/customer/sign-out";
+
     }
 }

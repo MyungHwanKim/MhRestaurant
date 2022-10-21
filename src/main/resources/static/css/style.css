@@ -524,3 +524,13 @@ h2, .hot, .resultPassword {
 .myPageUserReview tbody td a {
     color: black;
 }
+
+/* 회원 탈퇴 */
+.delete-account, #delete-account-result {
+    width: 500px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 0 auto;
+}
