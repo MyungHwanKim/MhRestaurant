@@ -6,5 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ReviewParam extends PageParam {
+
     Long customerId;
 }

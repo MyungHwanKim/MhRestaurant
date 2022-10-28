@@ -6,5 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CustomerParam extends PageParam {
+
     String userId;
 }
