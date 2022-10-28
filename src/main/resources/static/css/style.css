@@ -8,7 +8,7 @@ h2, .hot, .resultPassword {
     text-decoration: none;
 }
 
-#customerTotal, #reservationTotal {
+#customerTotal, #reservationTotal, #menuTotal {
     font-weight: bold;
     text-align: right;
     font-size: 17px;
@@ -533,4 +533,54 @@ h2, .hot, .resultPassword {
     background-color: #EEEFF1;
     padding: 20px;
     margin: 0 auto;
+}
+
+/* 메뉴 작성, 수정 */
+.menuForm {
+    width: 820px;
+    border: 0;
+    border-radius: 5px;
+    background-color: #EEEFF1;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.menuForm table {
+    margin: auto;
+    width: 780px;
+    height: 300px;
+    border: 1px solid #222;
+    background-color: white;
+    border-collapse: collapse;
+}
+.menuForm th{
+    width: 200px;
+    border: 1px solid #222;
+    background: #EEEFF1;
+}
+
+.menuForm td {
+    border: 1px solid #222;
+    text-align: center;
+}
+
+.menuForm td div {
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+}
+
+.adminList a, .adminList button {
+    border-width: 0;
+    background-color: transparent;
+    text-decoration: underline;
+    font-size: 16px;
+    line-height: 20px;
+    height: 20px;
+    color: #000;
+    cursor: pointer;
 }
