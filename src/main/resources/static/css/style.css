@@ -25,14 +25,6 @@ h2, .hot, .resultPassword {
     font-weight: bold;
 }
 
-* {
-    box-sizing: border-box;
-}
-
-.signIn {
-    margin: 0;
-}
-
  .bar {
     text-align: right;
 }
@@ -149,13 +141,24 @@ h2, .hot, .resultPassword {
     text-align: right;
 }
 
-.admin-select-field, .admin-button-field {
+.admin-select-field {
     font-size: 14px;
     margin-bottom: 10px;
     border: none;
     border-radius: 5px;
     padding: 10px;
     width: 100px;
+}
+
+.admin-button-field {
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100px;
+    color: whitesmoke;
+    background-color: lightskyblue;
 }
 
 .admin-text-field {
@@ -525,6 +528,18 @@ h2, .hot, .resultPassword {
     color: black;
 }
 
+/* 관리자 리뷰 관리 */
+.adminList tbody tr div form button {
+    border-width: 0;
+    background-color: transparent;
+    text-decoration: underline;
+    font-size: 16px;
+    line-height: 20px;
+    height: 20px;
+    color: #000;
+    cursor: pointer;
+}
+
 /* 회원 탈퇴 */
 .delete-account, #delete-account-result {
     width: 500px;
@@ -574,7 +589,7 @@ h2, .hot, .resultPassword {
     width: 200px;
 }
 
-.adminList a, .adminList button {
+.adminList a, .adminList #delete-button {
     border-width: 0;
     background-color: transparent;
     text-decoration: underline;
@@ -583,4 +598,107 @@ h2, .hot, .resultPassword {
     height: 20px;
     color: #000;
     cursor: pointer;
+}
+
+/* 메뉴 */
+/* FONT */
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
+/* Please note, it's not quite meant to look pretty.
+Hopefully the use of colours would make it easier to see what's going on and edit to your liking! */
+
+/* ONGOING: For better UX, finding solution to have styling on selected tabs*/
+
+/* General */
+body {
+    width: 90%;
+    margin: 10px auto;
+    background-color: #ecf0f1;
+    font-family: Lato, sans-serif;
+    letter-spacing: 1px;
+}
+
+*, *:hover {
+    transition: all 0.3s;
+    box-sizing: border-box;
+}
+
+/* Main Tabs */
+.menu label {
+    background-color: #FFE5CB;
+    color: black;
+    display: inline-block;
+    cursor: pointer;
+    padding: 14px;
+    font-size: 16px;
+}
+
+label:hover {
+    background-color: #FFEFD5;
+}
+
+/* Just to give indication that it's being clicked */
+label:active {
+    color: #37474f;
+}
+
+.top-tabs-container {
+    text-align: center;
+}
+
+.tab-radio {
+    display: none;
+}
+
+/* Tabs behaviour, hidden if not checked/clicked */
+.sub-tab-content,
+.tab-content {
+    display: none;
+}
+
+.tab-radio:checked + .tab-content,
+.tab-radio:checked + .sub-tab-content {
+    display: block;
+}
+
+/* Sub-tabs */
+
+.sub-tabs-container {
+    text-align: center;
+}
+
+.sub-tabs-container label {
+    color: #030700;
+    min-width: 150px;
+    text-align: center;
+    background-color: #FFCB9C;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.sub-tabs-container label:active {
+    color: #37474f;
+    box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.sub-tabs-container label:first-child {
+    background-color: #FFCB9C;
+}
+
+.sub-tabs-container label:hover {
+    background-color: #FFE4B5;
+}
+
+.sub-tabs-container label:first-child:hover {
+    background-color: #FFE4B5;
+}
+
+/* Tabs Content */
+.tab-content {
+    padding: 10px;
+    margin: auto;
+    width: 500px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    box-shadow: 2px 10px 6px -3px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }

@@ -45,6 +45,19 @@
             <table>
                 <tbody>
                     <tr>
+                        <th> 메뉴구분 </th>
+                        <td>
+                            <label>
+                                <select th:value="${menuDto.division}" id="division" class="division-field" name="division" required>
+                                    <option value="" disabled selected>구분 선택</option>
+                                    <option th:selected="${menuDto.division}=='메인 메뉴'" value="메인 메뉴">메인 메뉴</option>
+                                    <option th:selected="${menuDto.division}=='사이드 메뉴'" value="사이드 메뉴">사이드 메뉴</option>
+                                    <option th:selected="${menuDto.division}=='음료'" value="음료">음료</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
                         <th> 메뉴명 </th>
                         <td>
                             <input th:value="${menuDto.name}" type="text" name="name" required placeholder="메뉴명 입력"/>
