@@ -6,6 +6,7 @@ import com.devmhk.restaurant.exception.ServiceResult;
 import com.devmhk.restaurant.mapper.MenuMapper;
 import com.devmhk.restaurant.menu.domain.Menu;
 import com.devmhk.restaurant.menu.model.MenuInput;
+import com.devmhk.restaurant.menu.model.MenuIntro;
 import com.devmhk.restaurant.menu.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,7 @@ public class MenuServiceImpl implements MenuService {
         Menu menu = menuRepository.findById(menuInput.getMenuId())
                 .orElseThrow(() -> new ServiceResult(NOT_MENU_INFO));
 
+        menu.setDivision(menuInput.getDivision());
         menu.setName(menuInput.getName());
         menu.setContent(menuInput.getContent());
         menu.setPrice(menuInput.getPrice());
@@ -64,6 +66,7 @@ public class MenuServiceImpl implements MenuService {
     @Transactional
     public void register(MenuInput menuInput) {
         Menu menu = Menu.builder()
+                .division(menuInput.getDivision())
                 .name(menuInput.getName())
                 .content(menuInput.getContent())
                 .price(menuInput.getPrice())
@@ -96,5 +99,20 @@ public class MenuServiceImpl implements MenuService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<MenuIntro> mainMenuList() {
+        return menuMapper.mainMenuList();
+    }
+
+    @Override
+    public List<MenuIntro> sideMenuList() {
+        return menuMapper.sideMenuList();
+    }
+
+    @Override
+    public List<MenuIntro> drinkMenuList() {
+        return menuMapper.drinkMenuList();
     }
 }

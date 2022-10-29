@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -42,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/customer/email-auth",
                         "/customer/find/password",
                         "/customer/reset/password",
-                        "/review/list")
+                        "/review/list",
+                        "/menu")
                 .permitAll();
 
         http.authorizeRequests()
@@ -64,8 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-                .antMatchers("/error");
+        web.ignoring().antMatchers("/error", "/favicon.ico", "/files/**");
         super.configure(web);
     }
 

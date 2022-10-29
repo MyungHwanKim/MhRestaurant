@@ -15,6 +15,8 @@ public class MenuDto {
 
     private Long menuId;
 
+    private String division;
+
     private String name;
 
     private String content;
@@ -33,6 +35,7 @@ public class MenuDto {
     public static MenuDto of(Menu menu) {
         return MenuDto.builder()
                 .menuId(menu.getId())
+                .division(menu.getDivision())
                 .name(menu.getName())
                 .content(menu.getContent())
                 .price(menu.getPrice())

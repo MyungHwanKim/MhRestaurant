@@ -18,6 +18,8 @@ public class Menu {
     @Column(name = "menu_id")
     private Long id;
 
+    private String division;
+
     private String name;
 
     @Lob

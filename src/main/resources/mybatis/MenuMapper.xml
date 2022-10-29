@@ -17,4 +17,22 @@
         FROM menu
         where 1 = 1
     </select>
+
+    <select id="mainMenuList" resultType="com.devmhk.restaurant.admin.dto.MenuDto">
+        select *
+        from menu
+        where division='메인 메뉴'
+    </select>
+
+    <select id="sideMenuList" resultType="com.devmhk.restaurant.admin.dto.MenuDto">
+        select *
+        from menu
+        where division='사이드 메뉴'
+    </select>
+
+    <select id="drinkMenuList" resultType="com.devmhk.restaurant.admin.dto.MenuDto">
+        select *
+        from menu
+        where division='음료'
+    </select>
 </mapper>

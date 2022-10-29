@@ -14,6 +14,9 @@ public class MenuInput {
 
     private Long menuId;
 
+    @NotBlank(message = "메뉴 구분은 필수 항목입니다.")
+    private String division;
+
     @NotBlank(message = "메뉴명은 필수 항목입니다.")
     private String name;
 
