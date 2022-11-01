@@ -21,7 +21,7 @@ public class MenuDto {
 
     private String content;
 
-    private Long price;
+    private String price;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

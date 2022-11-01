@@ -12,6 +12,6 @@ public class MenuIntro {
     private String division;
     private String name;
     private String content;
-    private Long price;
+    private String price;
     private String urlFileName;
 }

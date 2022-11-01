@@ -24,7 +24,7 @@ public class MenuInput {
     private String content;
 
     @NotBlank(message = "메뉴 가격은 필수 항목입니다.")
-    private Long price;
+    private String price;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

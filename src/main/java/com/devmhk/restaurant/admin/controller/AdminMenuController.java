@@ -85,7 +85,7 @@ public class AdminMenuController extends BaseController {
         if (file != null) {
             String originalFileName = file.getOriginalFilename();
             String baseLocalPath = "C:/dev/Reservation_Project/restaurant/src/main/resources/static/files";
-            String baseUrlPath = "/src/main/resources/static/files";
+            String baseUrlPath = "/files";
 
             String[] arrFileName = getNewSaveFile(baseLocalPath, baseUrlPath, originalFileName);
 
