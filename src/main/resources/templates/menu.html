@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 메뉴 소개</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+</head>
+<body>
+    <div class="bar">
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a th:if="${userId eq false}" href="/customer/sign-in"> 로그인/회원가입 </a>
+        <a th:if="${userId}" href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <a class="title" href="/">
+        <h1> MH 식당 </h1>
+    </a>
+    <br>
+    <div class="list">
+        <a class="menu" href="/menu"> 메뉴 소개 </a>
+        |
+        <a class="reserve" href="/reservation"> 예약 </a>
+        |
+        <a class="review" href="/review/list"> 방문자 리뷰 </a>
+    </div>
+    <br/>
+    <div class="table_header">
+        <h3>메뉴 소개</h3>
+    </div>
+    <section class="menu">
+        <div class="top-tabs-container">
+            <label for="main-tab-1">메인 메뉴</label>
+            <label for="main-tab-2">사이드 메뉴</label>
+            <label for="main-tab-3">음료</label>
+        </div>
+        <br/>
+        <input class="tab-radio" id="main-tab-1" name="main-group" type="radio" checked="checked"/>
+        <div class="tab-content">
+            <div class="sub-tabs-container">
+                <label for="sub-tab-1" th:text="${mainMenuList.get(0).name}"></label>
+                <label for="sub-tab-2" th:text="${mainMenuList.get(1).name}"></label>
+            </div>
+            <input class="tab-radio" id="sub-tab-1" name="sub-group" type="radio" checked="checked">
+            <div class="sub-tab-content">
+                <h1 th:text="${mainMenuList.get(0).name}"></h1>
+                <img th:src="${mainMenuList.get(0).urlFileName}" style="width: 300px; height: 300px"/>
+                <p th:text="${mainMenuList.get(0).price}"></p>
+            </div>
+            <input class="tab-radio" id="sub-tab-2" name="sub-group" type="radio">
+            <div class="sub-tab-content">
+                <h1 th:text="${mainMenuList.get(1).name}"></h1>
+                <img th:src="${mainMenuList.get(1).urlFileName}" style="width: 300px; height: 300px"/>
+                <p th:text="${mainMenuList.get(1).price}"></p>
+            </div>
+        </div>
+
+        <input class="tab-radio" id="main-tab-2" name="main-group" type="radio"/>
+        <div class="tab-content">
+            <div class="sub-tabs-container">
+                <label for="sub-tab2-1" th:text="${sideMenuList.get(0).name}"></label>
+            </div>
+
+            <input class="tab-radio" id="sub-tab2-1" name="sub-group2" type="radio" checked="checked">
+            <div class="sub-tab-content">
+                <h1 th:text="${sideMenuList.get(0).name}"></h1>
+                <img th:src="${sideMenuList.get(0).urlFileName}" style="width: 300px; height: 300px"/>
+                <p th:text="${sideMenuList.get(0).price}"></p>
+            </div>
+        </div>
+
+        <!-- Tab Container 3 -->
+        <input class="tab-radio" id="main-tab-3" name="main-group" type="radio"/>
+        <div class="tab-content">
+            <div class="sub-tabs-container">
+                <!-- NOTE: due to id note below, remember to match the for-->
+                <label for="sub-tab3-1" th:text="${drinkMenuList.get(0).name}"></label>
+                <label for="sub-tab3-2" th:text="${drinkMenuList.get(1).name}"></label>
+            </div>
+            <!-- Sub Tab -->
+            <input class="tab-radio" id="sub-tab3-1" name="sub-group3" type="radio" checked="checked">
+            <div class="sub-tab-content">
+                <h1 th:text="${drinkMenuList.get(0).name}"></h1>
+                <img th:src="${drinkMenuList.get(0).urlFileName}" style="width: 300px; height: 300px"/>
+                <p th:text="${drinkMenuList.get(0).price}"></p>
+            </div>
+            <!-- Sub Tab -->
+            <input class="tab-radio" id="sub-tab3-2" name="sub-group3" type="radio">
+            <div class="sub-tab-content">
+                <h1 th:text="${drinkMenuList.get(1).name}"></h1>
+                <img th:src="${drinkMenuList.get(1).urlFileName}" style="width: 300px; height: 300px"/>
+                <p th:text="${drinkMenuList.get(1).price}"></p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

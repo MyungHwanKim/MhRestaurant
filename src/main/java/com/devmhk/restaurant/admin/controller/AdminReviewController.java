@@ -2,7 +2,6 @@ package com.devmhk.restaurant.admin.controller;
 
 import com.devmhk.restaurant.admin.model.ReviewParam;
 import com.devmhk.restaurant.review.dto.ReviewDto;
-import com.devmhk.restaurant.review.model.ReviewInput;
 import com.devmhk.restaurant.review.service.ReviewService;
 import com.devmhk.restaurant.util.page.BaseController;
 import lombok.RequiredArgsConstructor;

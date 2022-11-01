@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ReviewParam extends PageParam {
+public class MenuParam extends PageParam {
 
-    Long customerId;
+    private Long id;
 }

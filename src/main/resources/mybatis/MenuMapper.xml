@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devmhk.restaurant.mapper.MenuMapper">
+
+    <select id="selectList" resultType="com.devmhk.restaurant.admin.dto.MenuDto">
+        select *
+        from menu
+        where 1 = 1
+        order by menu_id desc
+        limit #{pageStart}, #{pageEnd};
+    </select>
+
+    <select id="selectListCount" resultType="long">
+        SELECT count(*)
+        FROM menu
+        where 1 = 1
+    </select>
+
+    <select id="mainMenuList" resultType="com.devmhk.restaurant.admin.dto.MenuDto">
+        select *
+        from menu
+        where division='메인 메뉴'
+    </select>
+
+    <select id="sideMenuList" resultType="com.devmhk.restaurant.admin.dto.MenuDto">
+        select *
+        from menu
+        where division='사이드 메뉴'
+    </select>
+
+    <select id="drinkMenuList" resultType="com.devmhk.restaurant.admin.dto.MenuDto">
+        select *
+        from menu
+        where division='음료'
+    </select>
+</mapper>

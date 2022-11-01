@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 메뉴 관리</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('#selectAll').on('click', function() {
+
+                var checked = $(this).is(':checked');
+
+                $('#dataList input[type=checkbox]').each(function() {
+                    $(this).prop('checked', checked);
+                });
+            });
+
+            $('#delete-button').on('click', function() {
+
+                var $checked = $('#dataList input[type=checkbox]:checked');
+
+                if ($checked.length < 1) {
+                    alert(' 삭제할 데이터를 선택해 주세요. ');
+                    return false;
+                }
+                if (!confirm(' 선택한 데이터를 삭제하시겠습니까? ')) {
+                    return false;
+                }
+
+                var idList = [];
+                $.each($checked, function(k, v) {
+                    idList.push($(this).val());
+                });
+
+                console.log(idList);
+                console.log(idList.join(','));
+
+                var $deleteForm = $('form[name=deleteForm]');
+                $deleteForm.find('input[name=idList]').val( idList.join(','));
+                $deleteForm.submit();
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="bar">
+        <a href="/"> 홈 </a>
+        |
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <h1 class="title"> MH 식당 - 메뉴 관리 </h1>
+    <div class="adminMain">
+        <a href="/admin/main.do"> 관리자 홈 </a>
+        |
+        <a href="/admin/menu/list.do"> 메뉴 관리 </a>
+        |
+        <a href="/admin/customer/list.do"> 고객 관리 </a>
+        |
+        <a href="/admin/reservation/list.do"> 예약 관리 </a>
+        |
+        <a href="/admin/review/list.do"> 리뷰 관리 </a>
+    </div>
+    <div class="adminList">
+        <p id="menuTotal">전체 <span th:text="${totalCount}"></span>개</p>
+        <a href="/admin/menu/register.do">  메뉴 등록 </a>
+        <button id="delete-button" type="button"> 선택 삭제 </button>
+        <table>
+            <thead>
+            <tr>
+                <th><input id="selectAll" type="checkbox"/></th>
+                <th> NO </th>
+                <th> 메뉴명 </th>
+                <th> 등록일 </th>
+            </tr>
+            </thead>
+            <tbody id="dataList">
+            <tr th:each="menu : ${menuDtoList}">
+                <td>
+                    <input type="checkbox" th:value="${menu.menuId}"/>
+                </td>
+                <td th:text="${menu.seq}"></td>
+                <td>
+                    <a th:href="'edit.do?menuId=' + ${menu.menuId}" th:text="${menu.name}"></a>
+                </td>
+                <td th:text="${menu.getCreatedText()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="page" th:utext="${pageHtml}"></div>
+    </div>
+    <form name="deleteForm" method="post" action="/admin/menu/delete.do">
+        <input type="hidden" name="idList"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MH 식당 - 메뉴 등록</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/notosanskr.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('#submitForm').on('submit', function() {
+
+                oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+                var content = document.getElementById("content").value;
+                if(content == ""  || content == null || content == '&nbsp;' || content == '<p>&nbsp;</p>' || content == '<p><br></p>')  {
+                    alert("내용을 입력하세요.");
+                    oEditors.getById["content"].exec("FOCUS");
+                    return false;
+                }
+
+                try {
+                    comment.submit();
+                } catch(e) {}
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="bar">
+        <a href="/"> 홈 </a>
+        |
+        <a href="/customer/myMain"> MY 관리 </a>
+        |
+        <a href="/customer/sign-out"> 로그아웃 </a>
+    </div>
+    <hr/>
+    <h1 class="title"> MH 식당 - 메뉴 등록 </h1>
+    <br/>
+    <div class="table_header">
+        <h3>메뉴 등록</h3>
+    </div>
+    <div class="menuForm">
+        <form id="submitForm" method="post" enctype="multipart/form-data">
+            <table>
+                <tbody>
+                    <tr>
+                        <th> 메뉴구분 </th>
+                        <td>
+                            <label>
+                                <select th:value="${menuDto.division}" id="division" class="division-field" name="division" required>
+                                    <option value="" disabled selected>구분 선택</option>
+                                    <option th:selected="${menuDto.division}=='메인 메뉴'" value="메인 메뉴">메인 메뉴</option>
+                                    <option th:selected="${menuDto.division}=='사이드 메뉴'" value="사이드 메뉴">사이드 메뉴</option>
+                                    <option th:selected="${menuDto.division}=='음료'" value="음료">음료</option>
+                                </select>
+                            </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 메뉴명 </th>
+                        <td>
+                            <input th:value="${menuDto.name}" type="text" name="name" required placeholder="메뉴명 입력"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 설명 </th>
+                        <td>
+                            <textarea th:text="${menuDto.content}" id="content" name="content" placeholder="설명 입력"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 가격 </th>
+                        <td>
+                            <input th:value="${menuDto.price}" type="text" name="price" required placeholder="가격 입력"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 메뉴 사진 </th>
+                        <td>
+                            <input type="file" name="file"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th> 최근 수정일 </th>
+                        <td th:text="${menuDto.getUpdatedText()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="error" th:text="${message}"></div>
+            <br/>
+            <div>
+                <button th:if="${editMode}" type="submit" class="submit-btn"> 메뉴 수정 </button>
+                <button th:if="${!editMode}" type="submit" class="submit-btn"> 메뉴 등록 </button>
+                <div id="back-page">
+                    <a href="/admin/menu/list.do"> 이전 </a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="/res/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var oEditors = [];
+        setTimeout(function () {
+            nhn.husky.EZCreator.createInIFrame({
+                oAppRef: oEditors,
+                elPlaceHolder: "content",
+                sSkinURI: "/res/se2/SmartEditor2Skin.html",
+                fCreator: "createSEditor2"
+            });
+        },100);
+    </script>
+</body>
+</html>
