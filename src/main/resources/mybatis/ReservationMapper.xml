@@ -36,7 +36,7 @@
     <select id="selectList" resultType="com.devmhk.restaurant.admin.dto.ReservationDto">
         select *
         from reservation
-        ORDER BY RESERVED_DATE
+        ORDER BY id desc
         <include refid="selectListWhere"></include>
         limit #{pageStart}, #{pageEnd};
     </select>
