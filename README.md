@@ -13,7 +13,7 @@
 <thead>
 <tr margin-bottom=3px>
 <td width="300" align="center">
-<b style="color:#8fe3d9"><b>
+<b style="color:#8fe3d9">이메일 회원 인증<b>
 </td>
 <td width="300" align="center">
 <b>
@@ -26,7 +26,7 @@
 <tbody>
 <tr>
 <td width="300" align="center">
-<img src="" width="350">
+<img src="https://user-images.githubusercontent.com/102682659/203709388-a9cc2122-aba2-4266-9cd5-5a793e38e5c7.gif" width="350">
 </td>
 <td width="300" align="center">
 <img src="" width="350">
@@ -128,7 +128,7 @@
 - HTML, CSS, JQuery, Thymeleaf
 
 ### Backend
-- Java 11, SpringBoot, Spring Security, JPA, mybatis, 
+- Java 11, SpringBoot, Spring Security, JPA, mybatis
 - Docker, RabbitMQ, SMTP, MariaDB
 
 ## 🏡ERD
