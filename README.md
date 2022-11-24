@@ -4,7 +4,11 @@
 >유명한 맛집 식당 예약과 후기를 작성할 수 있는 서비스입니다.
 
 ## 📜 주요 기능
-- 
+- 선호하는 날짜에 시간 당 5팀의 예약을 진행할 수 있습니다.
+- 판매하고 있는 메뉴에 대해 미리 사진과 가격을 볼 수 있습니다.
+- 지금까지 방문한 고객들의 방문자 리뷰를 볼 수 있습니다.
+- 예약 후 방문 시간이 지나면, 마이페이지에 예약 확인에 리뷰 작성 버튼이 활성화됩니다.
+- 또한, 방문 후 3일 이내까지는 작성한 리뷰에 대해 수정이 가능합니다.
 - [API 명세서 보러가기](https://southern-skunk-223.notion.site/API-34c59be9b9354c928bcb3f94abb32e10)
 
 ## 🎈 시연 영상
@@ -13,7 +17,7 @@
 <thead>
 <tr margin-bottom=3px>
 <td width="300" align="center">
-<b style="color:#8fe3d9">이메일 회원 인증<b>
+<b>이메일 회원 인증<b>
 </td>
 <td width="300" align="center">
 <b>회원 정보 수정</b>
@@ -33,15 +37,11 @@
 <tr>
 <td width="300" align="center">
 
-<b>
-
-</b>
+<b>식당 예약</b>
 </td>
 <td width="300" align="center">
 
-<b>
-
-</b>
+<b>예약 확인</b>
 </td>
 </tr>
 <tr>
@@ -55,15 +55,11 @@
 <tr>
 <td width="300" align="center">
 
-<b>
- 
-</b>
+<b>리뷰 작성</b>
 </td>
 <td width="300" align="center">
 
-<b>
-  
-</b>
+<b>리뷰 확인</b>
 </td>
 </tr>
 <tr>
@@ -77,15 +73,11 @@
 <tr>
 <td width="300" align="center">
 
-<b>
-
-</b>
+<b>메뉴</b>
 </td>
 <td width="300" align="center">
 
-<b>
-  
-</b>
+<b>어드민 메뉴 관리</b>
 </td>
 </tr>
 <tr>
@@ -99,15 +91,11 @@
 <tr>
 <td width="300" align="center">
 
-<b>
-
-</b>
+<b>어드민 예약 관리</b>
 </td>
 <td width="300" align="center">
 
-<b>
-
-</b>
+<b>어드민 리뷰 관리</b>
 </td>
 </tr>
 <tr>
