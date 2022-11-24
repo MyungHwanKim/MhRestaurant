@@ -16,10 +16,8 @@
 <b style="color:#8fe3d9">이메일 회원 인증<b>
 </td>
 <td width="300" align="center">
-<b>
+<b>회원 정보 수정</b>
 
-</b>
-  
 </td>
 </tr>
 </thead>
@@ -29,7 +27,7 @@
 <img src="https://user-images.githubusercontent.com/102682659/203709388-a9cc2122-aba2-4266-9cd5-5a793e38e5c7.gif" width="350">
 </td>
 <td width="300" align="center">
-<img src="" width="350">
+<img src="https://user-images.githubusercontent.com/102682659/203711839-5deb141d-3d86-4a24-9f7c-73fc7b625243.gif" width="350">
 </td>
 </tr>
 <tr>
