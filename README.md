@@ -55,7 +55,7 @@
 <tr>
 <td width="300" align="center">
 
-<b>개인 리뷰 및 전체 리뷰 확인</b>
+<b>리뷰 수정 및 개인, 전체 리뷰 확인</b>
 </td>
 <td width="300" align="center">
 
@@ -64,28 +64,10 @@
 </tr>
 <tr>
 <td width="300" align="center">
-<img src="" width="350">
+<img src="https://user-images.githubusercontent.com/102682659/205837857-0a8cc8d6-65a2-4e6f-9932-00abd5f078e5.gif" width="350">
 </td>
 <td width="300" align="center">
-<img src="" width="350">
-</td>
-</tr>
-<tr>
-<td width="300" align="center">
-
-<b>어드민 메뉴 관리</b>
-</td>
-<td width="300" align="center">
-
-<b>어드민 예약 및 리뷰 관리</b>
-</td>
-</tr>
-<tr>
-<td width="300" align="center">
-<img src="" width="350">
-</td>
-<td width="300" align="center">
-<img src="" width="350">
+<img src="https://user-images.githubusercontent.com/102682659/205837733-64a722fa-03bf-4178-8e65-3833493816ab.gif" width="350">
 </td>
 </tr>
 </tbody>
