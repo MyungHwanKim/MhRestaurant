@@ -45,11 +45,12 @@
 </td>
 </tr>
 <tr>
+
 <td width="300" align="center">
-<img src= "https://user-images.githubusercontent.com/102682659/205830792-4aa485fc-dae1-4ee8-8d97-098970769199.gif" width="350"  > 
+<img src= "https://user-images.githubusercontent.com/102682659/205840930-7bc6626a-65d6-456e-b7a4-7522f37688f5.gif" width="350"  > 
 </td>
 <td width="300" align="center">
-<img src="https://user-images.githubusercontent.com/102682659/205833614-f87c9a26-fdf9-4f3e-b76f-7a221eae79e3.gif" width="350" >
+<img src="https://user-images.githubusercontent.com/102682659/205841080-2448061f-b5bb-4965-8b08-52020948b9c0.gif" width="350" >
 </td>
 </tr>
 <tr>
