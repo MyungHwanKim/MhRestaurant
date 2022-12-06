@@ -41,61 +41,43 @@
 </td>
 <td width="300" align="center">
 
-<b>예약 확인</b>
+<b>예약 확인 및 리뷰 작성</b>
 </td>
 </tr>
 <tr>
 <td width="300" align="center">
-<img src= "" width="350"  > 
+<img src= "https://user-images.githubusercontent.com/102682659/205830792-4aa485fc-dae1-4ee8-8d97-098970769199.gif" width="350"  > 
 </td>
 <td width="300" align="center">
-<img src="" width="350" >
+<img src="https://user-images.githubusercontent.com/102682659/205833614-f87c9a26-fdf9-4f3e-b76f-7a221eae79e3.gif" width="350" >
 </td>
 </tr>
 <tr>
 <td width="300" align="center">
 
-<b>리뷰 작성</b>
+<b>개인 리뷰 및 전체 리뷰 확인</b>
 </td>
-<td width="300" align="center">
-
-<b>리뷰 확인</b>
-</td>
-</tr>
-<tr>
-<td width="300" align="center">
-<img src="" width="350">
-</td>
-<td width="300" align="center">
-<img src="" width="350">
-</td>
-</tr>
-<tr>
 <td width="300" align="center">
 
 <b>메뉴</b>
 </td>
+</tr>
+<tr>
+<td width="300" align="center">
+<img src="" width="350">
+</td>
+<td width="300" align="center">
+<img src="" width="350">
+</td>
+</tr>
+<tr>
 <td width="300" align="center">
 
 <b>어드민 메뉴 관리</b>
 </td>
-</tr>
-<tr>
-<td width="300" align="center">
-<img src="" width="350">
-</td>
-<td width="300" align="center">
-<img src="" width="350">
-</td>
-</tr>
-<tr>
 <td width="300" align="center">
 
-<b>어드민 예약 관리</b>
-</td>
-<td width="300" align="center">
-
-<b>어드민 리뷰 관리</b>
+<b>어드민 예약 및 리뷰 관리</b>
 </td>
 </tr>
 <tr>
